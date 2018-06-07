@@ -1,4 +1,4 @@
-baseURL = "https://www.the-paper-trail.org"
+baseURL = "http://www.the-paper-trail.org"
 languageCode = "en-us"
 title = "The Paper Trail"
 theme = "beautifulhugo"
