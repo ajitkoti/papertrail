@@ -109,13 +109,7 @@ Paxos is more failure tolerant than 2PC. Using majorities instead of total agree
 
 It&#8217;s easy to see that Paxos does have a failure mode. When two proposers are active at the same time, they may &#8216;duel&#8217; for highest proposal number by alternately issuing proposals that &#8216;one-up&#8217; the previous proposal. Until this situation is resolved, and a single leader is agreed upon, it&#8217;s possible that Paxos may not terminate. This violates a liveness property. However, the likelihood is that eventually Paxos will return to a correct execution once the network settles down and the two proposers observe each other and agree to let one go first (note that this isn&#8217;t quite the same as solving consensus: one proposer simply has to back off for sufficiently long to let the other proposer get its proposal committed).
 
-<div id="attachment_184" style="width: 504px" class="wp-caption aligncenter">
-  <a href="http://the-paper-trail.org/blog/wp-content/uploads/2010/01/duelling-proposers.png"><img src="http://the-paper-trail.org/blog/wp-content/uploads/2010/01/duelling-proposers.png" alt="Duelling proposers violate termination" title="Duelling proposers violate termination" width="494" height="645" class="size-full wp-image-184" /></a>
-
-  <p class="wp-caption-text">
-    Duelling proposers violate termination
-  </p>
-</div>
+{{< figure src="/wp-content/uploads/2010/01/duelling-proposers.png" title="Duelling proposers violate termination" >}}
 
 There are other ways that Paxos can go wrong. Acceptors need to keep a record of the highest proposal they have agreed to, and the value of any proposals they have accepted, in stable storage. If that storage should crash then the acceptor cannot take part in the protocol for fear of corrupting the execution (by effectively lying about the proposals it has already seen). This is a kind of Byzantine failure, where an acceptor deviates from the protocol. Tolerance to generalised Byzantine failures is complex and difficult to make efficient (the established method is to add another  \\(f\\) acceptors to out-vote the potential  \\(f\\) that might fail Byzantinely.)
 
