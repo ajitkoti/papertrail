@@ -6,6 +6,8 @@ author: Henry
 layout: post
 guid: http://hnr.dnsalias.net/wordpress/?p=173
 permalink: /consensus-protocols-paxos/
+aliases:
+ - /blog/consensus-protocols-paxos/
 categories:
   - computer science
   - Distributed systems
