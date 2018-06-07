@@ -1,4 +1,4 @@
-baseURL = "http://example.org/"
+baseURL = "https://vibrant-payne-17d96b.netlify.com"
 languageCode = "en-us"
 title = "The Paper Trail"
 theme = "beautifulhugo"
