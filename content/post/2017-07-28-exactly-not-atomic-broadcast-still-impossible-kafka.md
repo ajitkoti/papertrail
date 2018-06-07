@@ -21,17 +21,7 @@ For this note, I&#8217;m _not_ going to address whether or not exactly-once is a
 
 In particular, the article makes the claim that atomic broadcast is &#8216;solvable&#8217; (and later that consensus is as well&#8230;), which is wrong. What follows is why, and why that matters.
 
-<blockquote class="twitter-tweet" data-width="550">
-  <p lang="en" dir="ltr">
-    This deserves a response: I think the conclusions are right but the imposs. arguments aren't. But it's 8pm in England and I'm in the pub. <a href="https://t.co/akmVv9rhW7">https://t.co/akmVv9rhW7</a>
-  </p>
-
-  <p>
-    &mdash; Henry Robinson (@HenryR) <a href="https://twitter.com/HenryR/status/881591741966569472?ref_src=twsrc%5Etfw">July 2, 2017</a>
-  </p>
-</blockquote>
-
-
+{{< tweet 881591741966569472 >}}
 
 I have since left the pub. So let&#8217;s begin.
 
