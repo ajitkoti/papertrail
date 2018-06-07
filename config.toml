@@ -1,0 +1,27 @@
+baseURL = "http://example.org/"
+languageCode = "en-us"
+title = "The Paper Trail"
+theme = "beautifulhugo"
+# contentdir = "content"
+publishdir = "public"
+builddrafts = false
+paginate = 10
+
+[Params]
+subtitle = "Distributed systems and data processing"
+readingTime = true
+
+[Author]
+name = "Henry Robinson"
+email = "henry.robinson+papertrail@gmail.com"
+twitter = "henryr"
+
+[[menu.main]]
+    name = "Blog"
+    url = ""
+    weight = 1
+
+[[menu.main]]
+    name = "About"
+    url = "page/about/"
+    weight = 3

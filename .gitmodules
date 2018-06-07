@@ -1,0 +1,12 @@
+[submodule "themes/er"]
+	path = themes/er
+	url = https://github.com/lingxz/er.git
+[submodule "themes/journal"]
+	path = themes/journal
+	url = https://github.com/damiencaselli/hugo-journal.git
+[submodule "themes/pixyll"]
+	path = themes/pixyll
+	url = https://github.com/azmelanar/hugo-theme-pixyll.git
+[submodule "themes/beautifulhugo"]
+	path = themes/beautifulhugo
+	url = https://github.com/halogenica/beautifulhugo.git
