@@ -112,13 +112,7 @@ Assume that \\(\mathbb{D}\\) contains no bivalent configurations. The proof show
 
 First, we show that \\(\mathbb{D}\\) contains both 0- and 1-valent configurations if it contains no bivalent configurations. Let \\(E_i\\) for \\(i=0,1\\) be an \\(i\\)-valent configuration reachable from \\(C\\). Both \\(E_0\\) and \\(E_1\\) exist because \\(C\\) is bivalent. For \\(E_0\\), if it is in \\(\mathbb{C}\\) (i.e. it has not received \\(e\\)) let \\(F_0\\) be the result of receiving \\(e\\) at \\(E_0\\). If it is not in \\(\mathbb{C}\\) then it has received \\(e\\); in this case let \\(F_0\\) be a configuration in \\(\mathbb{D}\\) from which \\(E_0\\) is reachable (i.e. the configuration that preceded \\(E_0\\) at the point that \\(e\\) was received).
 
-<div id="attachment_166" style="width: 287px" class="wp-caption alignnone">
-  <a href="http://the-paper-trail.org/blog/wp-content/uploads/2010/01/lemma2-fig-1.png"><img src="http://the-paper-trail.org/blog/wp-content/uploads/2010/01/lemma2-fig-1.png" alt="Figure 2.1: Proof that D must contain both 0- and 1-valent configurations if it contains no bivalent configuration" title="Figure 2.1: Proof that D must contain both 0- and 1-valent configurations if it contains no bivalent configuration" class="size-medium wp-image-166" /></a>
-
-  <p class="wp-caption-text">
-    Figure 2.1: Proof that D must contain both 0- and 1-valent configurations if it contains no bivalent configuration
-  </p>
-</div>
+{{< figure src="/wp-content/uploads/2010/01/lemma2-fig-1.png" caption="Figure 2.1: Proof that D must contain both 0- and 1-valent configurations if it contains no bivalent configuration" title="Figure 2.1" >}}
 
 That confusing definition is quite a simple idea: we are fixing an \\(F_0\\) in \\(\mathbb{D}\\) that either comes before or after \\(E_0\\) depending on whether \\(e\\) was received in the run to \\(E_0\\).
 
@@ -132,26 +126,13 @@ We use this fact to set up the rest of the lemma's proof. By a similar argument 
 
 \\(C_0\\) and \\(C_1\\) are called 'neighbours' because they are separated by a single message delivery. Now, consider the message that separates them, \\(e\prime=(p\prime,m\prime)\\). Consider the two alternatives for the destination of \\(e\prime\\), that is \\(p\prime\\).
 
-<div id="attachment_170" style="width: 510px" class="wp-caption aligncenter">
-    <a href="http://the-paper-trail.org/blog/wp-content/uploads/2010/01/lemma-2-fig-2.png"><img src="http://the-paper-trail.org/blog/wp-content/uploads/2010/01/lemma-2-fig-2.png" alt="" width="500" height="575" class="size-full wp-image-170" /></a>
-
-<p class="wp-caption-text">
-    Figure 2.2: Proof that D0 must be bivalent if the two states preceding D1 are separated by messages intended for different processes
-</p>
-</div>
+{{< figure src="/wp-content/uploads/2010/01/lemma-2-fig-2.png" caption="Proof that D0 must be bivalent if the two states preceding D1 are separated by messages intended for different processes" title="Figure2.2" >}}
 
 1. If \\(p\prime \neq p\\) - i.e. the message that separates them is for a different processor than \\(e\\) - then we can get to \\(D_1\\) by receiving \\(e\prime\\) at \\(D_0\\). If the destination of a set of messages is different then we can receive them in any order to get to the same configuration, because all the processors see the same order of events, just at different times. (This is called the <em>commutativity of schedules</em> in the paper and is proved by its own lemma. I have left the proof out of this - already proof heavy - article). But \\(D_0\\) is 0-valent, and \\(D_1\\) is 1-valent. So we should not be able to reach \\(D_1\\) from \\(D_0\\), as again this would imply the protocol had changed its mind. Therefore this is a contradiction.
 
 2. Instead consider \\(p\prime = p\\). Now consider a finite deciding run from \\(C_0\\) (the configuration such that receiving \\(e\\) results in a 0-valent configuration), in which \\(p\\) takes no steps (such a run must exist to cope with the possibility of \\(p\\) failing). Let \\(A\\) be the configuration that results at the end of that deciding run. We can also apply that run to either \\(D_0\\) or \\(D_1\\) to get two new configurations \\(E_0\\) and \\(E_1\\), and by the commutativity of schedules we can also receive \\(e\\) at \\(A\\) to get \\(E_0\\) (same set of messages, different delivery order), and \\(e\prime\\) followed by \\(e\\) at \\(A\\) to get \\(E_1\\). (Remember that \\(e\\) and \\(e\prime\\) are both available for receipt because \\(p\\) takes no steps in the deciding run). But this implies that \\(A\\) is bivalent, which is a contradiction since the run to \\(A\\) is deciding.
 
-<div id="attachment_171" style="width: 510px" class="wp-caption aligncenter">
-  <a href="http://the-paper-trail.org/blog/wp-content/uploads/2010/01/lemma-2-fig-3.png"><img src="http://the-paper-trail.org/blog/wp-content/uploads/2010/01/lemma-2-fig-3.png" alt="Figure 2.3: Proof that no deciding run from C0 exists if D contains only univalent configurations, and both messages preceding D1 are delivered to the same host" title="Figure 2.3: Proof that no deciding run from C0 exists if D contains only univalent configurations, and both messages preceding D1 are delivered to the same host" width="500" height="692" class="size-full wp-image-171" /></a>
-
-  <p class="wp-caption-text">
-    Figure 2.3: Proof that no deciding run from C0 exists if D contains only univalent configurations, and both messages preceding D1 are delivered to the same host
-  </p>
-</div>
-
+{{< figure src="/wp-content/uploads/2010/01/lemma-2-fig-3.png" caption="Proof that no deciding run from C0 exists if D contains only univalent configurations, and both messages preceding D1 are delivered to the same host" title="Figure 2.3" >}}
 
 So, by contradiction, we have shown that \\(\mathbb{D}\\) must contain a bivalent configuration.
 
