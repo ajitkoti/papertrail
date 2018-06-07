@@ -6,12 +6,16 @@ author: Henry
 layout: post
 guid: http://the-paper-trail.org/blog/?p=617
 permalink: /distributed-systems-theory-for-the-distributed-systems-engineer/
+aliases:
+ - /blog/distributed-systems-theory-for-the-distributed-systems-engineer/
 categories:
   - Distributed systems
 ---
-Gwen Shapira, SA superstar and now full-time engineer at Cloudera, asked a [question on Twitter](https://twitter.com/gwenshap/status/497203248332165121) that got me thinking.
+Gwen Shapira, who at the time was an engineer at Cloudera and now is spreading the Kafka gospel, asked a question on Twitter that got me thinking.
 
-My response of old might have been &#8220;well, here&#8217;s the FLP paper, and here&#8217;s the Paxos paper, and here&#8217;s the Byzantine generals paper&#8230;&#8221;, and I&#8217;d have prescribed a laundry list of primary source material which would have taken at least six months to get through if you rushed. But I&#8217;ve come to thinking that recommending a ton of theoretical papers is often precisely the wrong way to go about learning distributed systems theory (unless you are in a PhD program). Papers are usually deep, usually complex, and require both serious study, and usually _significant experience_ to glean their important contributions and to place them in context. What good is requiring that level of expertise of engineers? 
+{{< tweet 497203248332165121 >}}
+
+My response of old might have been &#8220;well, here&#8217;s the FLP paper, and here&#8217;s the Paxos paper, and here&#8217;s the Byzantine generals paper&#8230;&#8221;, and I&#8217;d have prescribed a laundry list of primary source material which would have taken at least six months to get through if you rushed. But I&#8217;ve come to thinking that recommending a ton of theoretical papers is often precisely the wrong way to go about learning distributed systems theory (unless you are in a PhD program). Papers are usually deep, usually complex, and require both serious study, and usually _significant experience_ to glean their important contributions and to place them in context. What good is requiring that level of expertise of engineers?
 
 And yet, unfortunately, there&#8217;s a paucity of good &#8216;bridge&#8217; material that summarises, distills and contextualises the important results and ideas in distributed systems theory; particularly material that does so without condescending. Considering that gap lead me to another interesting question:
 
@@ -25,7 +29,7 @@ A little theory is, in this case, not such a dangerous thing. So I tried to come
 
 These four readings do a pretty good job of explaining what about building distributed systems is challenging. Collectively they outline a set of abstract but technical difficulties that the distributed systems engineer has to overcome, and set the stage for the more detailed investigation in later sections
 
-[Distributed Systems for Fun and Profit](http://book.mixu.net/distsys/ "Distributed Systems For Fun and Profit") is a short book which tries to cover some of the basic issues in distributed systems including the role of time and different strategies for replication. 
+[Distributed Systems for Fun and Profit](http://book.mixu.net/distsys/ "Distributed Systems For Fun and Profit") is a short book which tries to cover some of the basic issues in distributed systems including the role of time and different strategies for replication.
 
 [Notes on distributed systems for young bloods](http://www.somethingsimilar.com/2013/01/14/notes-on-distributed-systems-for-young-bloods/) &#8211; not theory, but a good practical counterbalance to keep the rest of your reading grounded.
 
@@ -35,7 +39,7 @@ These four readings do a pretty good job of explaining what about building distr
 
 ### Failure and Time
 
-Many difficulties that the distributed systems engineer faces can be blamed on two underlying causes: 
+Many difficulties that the distributed systems engineer faces can be blamed on two underlying causes:
 
   1. processes may fail
   2. there is no good way to tell that they have done so
@@ -81,7 +85,7 @@ There are few agreed-upon basic building blocks in distributed systems, but more
 Some facts just need to be internalised. There are more than this, naturally, but here&#8217;s a flavour:
 
   * You can&#8217;t implement consistent storage and respond to all requests if you might drop messages between processes. This is the [CAP theorem](http://lpd.epfl.ch/sgilbert/pubs/BrewersConjecture-SigAct.pdf).
-  * Consensus is impossible to implement in such a way that it both a) is always correct and b) always terminates if even one machine might fail in an asynchronous system with crash-* stop failures (the FLP result). The first slides &#8211; before the proof gets going &#8211; of my [Papers We Love SF talk](http://www.slideshare.net/HenryRobinson/pwl-nonotes) do a reasonable job of explaining the result, I hope. _Suggestion: there&#8217;s no real need to understand the proof_. 
+  * Consensus is impossible to implement in such a way that it both a) is always correct and b) always terminates if even one machine might fail in an asynchronous system with crash-* stop failures (the FLP result). The first slides &#8211; before the proof gets going &#8211; of my [Papers We Love SF talk](http://www.slideshare.net/HenryRobinson/pwl-nonotes) do a reasonable job of explaining the result, I hope. _Suggestion: there&#8217;s no real need to understand the proof_.
   * Consensus is impossible to solve in fewer than 2 rounds of messages in general
 
 ### Real systems

@@ -18,7 +18,7 @@ tags:
 You can&#8217;t really read two articles about distributed systems today without someone mentioning the Paxos algorithm. Google use it in [Chubby](http://labs.google.com/papers/chubby.html), Yahoo use it, or something a bit like it, in [ZooKeeper](http://research.yahoo.com/node/1849) and it seems that it&#8217;s considered the ne plus ultra of consensus algorithms. It also comes with a reputation as being fantastically difficult to understand &#8211; a subtle, complex algorithm that is only properly appreciated by a select few.
 
 This is kind of true and not true at the same time. Paxos is an algorithm whose entire behaviour is subtly difficult to grasp. However, the algorithm itself is fairly intuitive, and certainly relatively simple. In this article I&#8217;ll describe how basic Paxos operates, with reference to previous articles on two-phase and three-phase commit. I&#8217;ve included a bibliography at the end, for those who want plenty more detail.
-  
+
 <!--more-->
 
 ## Why another consensus algorithm?
@@ -41,7 +41,7 @@ The major events in the development of consensus protocols can be summarised bel
 
   1. Jim Gray (amongst others) proposes 2PC in the 1970s. Problem: blocks on failure of single node even in synchronous networks.
   2. Dale Skeen (amongst others) shows the need for an extra, third phase to avoid blocking in the early 1980s. 3PC is an obvious corollary, but it is not provably correct, and in fact suffers from incorrectness under certain network conditions.
-  3. Leslie Lamport proposes Paxos, which is provably correct in asynchronous networks that eventually become synchronous, does not block if a majority of participants are available (so withstands  <img src='http://s0.wp.com/latex.php?latex=n%2F2&#038;bg=ffffff&#038;fg=000000&#038;s=0' alt='n/2' title='n/2' class='latex' />faults) and has provably minimal message delays in the best case.
+  3. Leslie Lamport proposes Paxos, which is provably correct in asynchronous networks that eventually become synchronous, does not block if a majority of participants are available (so withstands  \\(n/2\\)faults) and has provably minimal message delays in the best case.
 
 ## Paxos in detail
 
@@ -59,13 +59,7 @@ In skeleton form, Paxos looks very much like 2PC. The proposer sends a &#8216;pr
 
 Paxos adds two important mechanisms to 2PC. The first is _ordering_ the proposals so that it may be determined which of two proposals should be accepted. The second improvement is to consider a proposal accepted when a _majority_ of acceptors have indicated that they have decided upon it. This is different from 2PC where proposals were accepted only if every acceptor agreed to do so. This lead to the blocking characteristics of 2PC, where a single failed node could lead to the protocol never terminating while the proposer waited for a reply that would never come. Instead, in Paxos, nearly half the nodes can fail to reply and the protocol will still continue correctly.
 
-<div id="attachment_182" style="width: 323px" class="wp-caption aligncenter">
-  <a href="http://the-paper-trail.org/blog/wp-content/uploads/2010/01/standard-run.png"><img class="size-full wp-image-182" title="A failure-free complete execution of Paxos" src="http://the-paper-trail.org/blog/wp-content/uploads/2010/01/standard-run.png" alt="A failure-free complete execution of Paxos" width="313" height="634" /></a>
-  
-  <p class="wp-caption-text">
-    A failure-free complete execution of Paxos
-  </p>
-</div>
+{{< figure src="/wp-content/uploads/2010/01/standard-run.png" title="A failure-free complete execution of Paxos" >}}
 
 ### Sequence numbers
 
@@ -73,7 +67,7 @@ Every proposal is tagged with a unique _sequence number_ that we assume can be g
 
 This ordering is used so that no matter what order the messages containing the prepare requests arrive in, the acceptors can agree &#8211; without further communication &#8211; on which one to agree, tentatively, to accepting. This helps cope with one of the artifacts of an asynchronous system &#8211; the possibility of messages arriving in different orders at different hosts.
 
-How can we ensure that all proposals are uniquely numbered? The easiest way is to have all proposers draw from disjoint sets of sequence numbers. In particular, one practical way is to construct a pair  <img src='http://s0.wp.com/latex.php?latex=%28seq.+number%2C+address%29&#038;bg=ffffff&#038;fg=000000&#038;s=0' alt='(seq. number, address)' title='(seq. number, address)' class='latex' />where the address value is the proposer&#8217;s unique network address. These pairs can be totally ordered and at the same time all proposers can &#8216;outbid&#8217; all others if they choose a sufficiently large sequence number.
+How can we ensure that all proposals are uniquely numbered? The easiest way is to have all proposers draw from disjoint sets of sequence numbers. In particular, one practical way is to construct a pair  \\((seq. number, address)\\) where the address value is the proposer&#8217;s unique network address. These pairs can be totally ordered and at the same time all proposers can &#8216;outbid&#8217; all others if they choose a sufficiently large sequence number.
 
 ### Majorities
 
@@ -97,37 +91,37 @@ Informally, here are the steps that each principal in the protocol must execute.
 
 PROPOSERS:
 
-1. Submit a proposal numbered  <img src='http://s0.wp.com/latex.php?latex=n&#038;bg=ffffff&#038;fg=000000&#038;s=0' alt='n' title='n' class='latex' />to a majority of acceptors. Wait for a majority of acceptors to reply.
-  
+1. Submit a proposal numbered  \\(n\\) to a majority of acceptors. Wait for a majority of acceptors to reply.
+
 2. If the majority reply &#8216;agree&#8217;, they will also send back the value of any proposals they have already accepted. Pick one of these values, and send a &#8216;commit&#8217; message with the proposal number and the value. If no values have already been accepted, use your own. If instead a majority reply &#8216;reject&#8217;, or fail to reply, abandon the proposal and start again.
-  
+
 3. If a majority reply to your commit request with an &#8216;accepted&#8217; message, consider the protocol terminated. Otherwise, abandon the proposal and start again.
 
 ACCEPTORS:
 
 1. Once a proposal is received, compare its number to the highest numbered proposal you have already agreed to. If the new proposal is higher, reply &#8216;agree&#8217; with the value of any proposals you have already accepted. If it is lower, reply &#8216;reject&#8217;, along with the sequence number of the highest proposal.
-  
+
 2. When a &#8216;commit&#8217; message is received, accept it if a) the value is the same as any previously accepted proposal and b) its sequence number is the highest proposal number you have agreed to. Otherwise, reject it.
 
 ### Failure tolerance
 
-Paxos is more failure tolerant than 2PC. Using majorities instead of total agreement ensures that the protocol is tolerant to up to half the acceptors failing. If we wish to withstand  <img src='http://s0.wp.com/latex.php?latex=f&#038;bg=ffffff&#038;fg=000000&#038;s=0' alt='f' title='f' class='latex' />failures, we need to provide  <img src='http://s0.wp.com/latex.php?latex=2f%2B1&#038;bg=ffffff&#038;fg=000000&#038;s=0' alt='2f+1' title='2f+1' class='latex' />acceptors. If the proposer should fail, we can arrange for another proposer to take over the protocol by issuing its own proposal. If the original proposer recovers, the rules about committing only previously accepted values and agreeing to proposals that are numbered higher than what have been seen before ensure that the two proposers can co-exist without the danger of violating correctness.
+Paxos is more failure tolerant than 2PC. Using majorities instead of total agreement ensures that the protocol is tolerant to up to half the acceptors failing. If we wish to withstand  \\(f\\) failures, we need to provide  \\(2f+1\\) acceptors. If the proposer should fail, we can arrange for another proposer to take over the protocol by issuing its own proposal. If the original proposer recovers, the rules about committing only previously accepted values and agreeing to proposals that are numbered higher than what have been seen before ensure that the two proposers can co-exist without the danger of violating correctness.
 
 It&#8217;s easy to see that Paxos does have a failure mode. When two proposers are active at the same time, they may &#8216;duel&#8217; for highest proposal number by alternately issuing proposals that &#8216;one-up&#8217; the previous proposal. Until this situation is resolved, and a single leader is agreed upon, it&#8217;s possible that Paxos may not terminate. This violates a liveness property. However, the likelihood is that eventually Paxos will return to a correct execution once the network settles down and the two proposers observe each other and agree to let one go first (note that this isn&#8217;t quite the same as solving consensus: one proposer simply has to back off for sufficiently long to let the other proposer get its proposal committed).
 
 <div id="attachment_184" style="width: 504px" class="wp-caption aligncenter">
   <a href="http://the-paper-trail.org/blog/wp-content/uploads/2010/01/duelling-proposers.png"><img src="http://the-paper-trail.org/blog/wp-content/uploads/2010/01/duelling-proposers.png" alt="Duelling proposers violate termination" title="Duelling proposers violate termination" width="494" height="645" class="size-full wp-image-184" /></a>
-  
+
   <p class="wp-caption-text">
     Duelling proposers violate termination
   </p>
 </div>
 
-There are other ways that Paxos can go wrong. Acceptors need to keep a record of the highest proposal they have agreed to, and the value of any proposals they have accepted, in stable storage. If that storage should crash then the acceptor cannot take part in the protocol for fear of corrupting the execution (by effectively lying about the proposals it has already seen). This is a kind of Byzantine failure, where an acceptor deviates from the protocol. Tolerance to generalised Byzantine failures is complex and difficult to make efficient (the established method is to add another  <img src='http://s0.wp.com/latex.php?latex=f&#038;bg=ffffff&#038;fg=000000&#038;s=0' alt='f' title='f' class='latex' />acceptors to out-vote the potential  <img src='http://s0.wp.com/latex.php?latex=f&#038;bg=ffffff&#038;fg=000000&#038;s=0' alt='f' title='f' class='latex' />that might fail Byzantinely.)
+There are other ways that Paxos can go wrong. Acceptors need to keep a record of the highest proposal they have agreed to, and the value of any proposals they have accepted, in stable storage. If that storage should crash then the acceptor cannot take part in the protocol for fear of corrupting the execution (by effectively lying about the proposals it has already seen). This is a kind of Byzantine failure, where an acceptor deviates from the protocol. Tolerance to generalised Byzantine failures is complex and difficult to make efficient (the established method is to add another  \\(f\\) acceptors to out-vote the potential  \\(f\\) that might fail Byzantinely.)
 
 ### Efficiency
 
-In an ideal correct execution of Paxos, message counts are low. In the first phase a proposer will send  <img src='http://s0.wp.com/latex.php?latex=f%2B1&#038;bg=ffffff&#038;fg=000000&#038;s=0' alt='f+1' title='f+1' class='latex' />messages, and receive  <img src='http://s0.wp.com/latex.php?latex=f%2B1&#038;bg=ffffff&#038;fg=000000&#038;s=0' alt='f+1' title='f+1' class='latex' />replies. This will be repeated in the second phase for a total of  <img src='http://s0.wp.com/latex.php?latex=4f%2B4&#038;bg=ffffff&#038;fg=000000&#038;s=0' alt='4f+4' title='4f+4' class='latex' />messages, with a total of 4 message delays. However, if a single acceptor fails, the protocol will take longer to complete as the proposal must be reissued. Instead the proposer might broadcast its messages to all  <img src='http://s0.wp.com/latex.php?latex=2f%2B1&#038;bg=ffffff&#038;fg=000000&#038;s=0' alt='2f+1' title='2f+1' class='latex' />acceptors, which implies that  <img src='http://s0.wp.com/latex.php?latex=f%2B1&#038;bg=ffffff&#038;fg=000000&#038;s=0' alt='f+1' title='f+1' class='latex' />would have to fail before the protocol is delayed. Of course, if the proposer fails, there is a delay while a) another proposer decides to take over and b) a new instance of the protocol is executed.
+In an ideal correct execution of Paxos, message counts are low. In the first phase a proposer will send  \\(f+1\\) messages, and receive  \\(f+1\\) replies. This will be repeated in the second phase for a total of  \\(4f+4\\) messages, with a total of 4 message delays. However, if a single acceptor fails, the protocol will take longer to complete as the proposal must be reissued. Instead the proposer might broadcast its messages to all  \\(2f+1\\) acceptors, which implies that  \\(f+1\\) would have to fail before the protocol is delayed. Of course, if the proposer fails, there is a delay while a) another proposer decides to take over and b) a new instance of the protocol is executed.
 
 If the right sequence of failures occur, or if proposers go into duelling mode as described above, the message count could be arbitrarily large. Once the network returns to stable conditions, however, the delay until the protocol is completed is once again 4 message delays.
 
@@ -165,7 +159,7 @@ Presents Paxos in a ground-up fashion as a consequence of the requirements and c
 
 The original paper. Once you understand the protocol, you might well really enjoy this presentation of it. Contains proofs of correctness which the &#8216;.. Made Simple&#8217; paper does not.
 
-### [Paxos Made Live](http://labs.google.com/papers/paxos_made_live.html)
+### [Paxos Made Live](https://ai.google/research/pubs/pub33002)
 
 This paper from Google bridges the gap between theoretical algorithm and working system. There are a number of practical issues to consider when implementing Paxos that you might well not have imagined. If you want to build a system using Paxos, you should read this paper beforehand.
 
