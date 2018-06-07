@@ -6,6 +6,8 @@ author: Henry
 layout: post
 guid: http://hnr.dnsalias.net/wordpress/?p=90
 permalink: /consensus-protocols-two-phase-commit/
+alias:
+ - /blog/consensus-protocols-two-phase-commit/
 categories:
   - computer science
   - Distributed systems
@@ -71,7 +73,7 @@ The process that proposes values is called the _coordinator_, and does not have 
 
 <div id="attachment_142" style="width: 510px" class="wp-caption alignnone">
   <a href="http://the-paper-trail.org/blog/wp-content/uploads/2010/01/tpc-fault-free-phase-1.png"><img class="size-full wp-image-142" title="Figure 1: Two-phase commit, fault-free execution, phase one." src="http://the-paper-trail.org/blog/wp-content/uploads/2010/01/tpc-fault-free-phase-1.png" alt="Figure 1: Two-phase commit, fault-free execution, phase one." width="500" height="318" /></a>
-  
+
   <p class="wp-caption-text">
     Figure 1: Two-phase commit, fault-free execution, phase one.
   </p>
@@ -81,7 +83,7 @@ Observe that the consensus here is in regard to whether or not to accept the val
 
 <div id="attachment_145" style="width: 279px" class="wp-caption alignnone">
   <a href="http://the-paper-trail.org/blog/wp-content/uploads/2010/01/tpc-fault-free-phase-2.png"><img src="http://the-paper-trail.org/blog/wp-content/uploads/2010/01/tpc-fault-free-phase-2.png" alt="Figure 2: Two-phase commit, fault-free execution, phase two." title="Figure 2: Two-phase commit, fault-free execution, phase two." width="269" height="340" class="size-full wp-image-145" /></a>
-  
+
   <p class="wp-caption-text">
     Figure 2: Two-phase commit, fault-free execution, phase two.
   </p>
@@ -108,12 +110,12 @@ In phase one, before any messages are sent out, the coordinator could crash. Thi
 Now consider the protocol after some of the proposal messages have been sent, but not all of them. If the coordinator crashes at this point we&#8217;ll have some nodes that have received a proposal and are starting a 2PC round, and some nodes that are unaware that anything is going on. If the coordinator doesn&#8217;t recover for a long time, the nodes that received the proposal are going to be blocked waiting for the outcome of a protocol that might never be finished. This can mean that no other instances of the protocol can be succesfully executed, as participants might have to take locks on resources when voting &#8216;commit&#8217;. These nodes will have sent back their votes to the coordinator &#8211; unaware that it has failed &#8211; and therefore can&#8217;t simply timeout and abort the protocol since there&#8217;s a possibility the coordinator might reawaken, see their &#8216;commit&#8217; votes and start phase two of the protocol with a commit message.
 
 The protocol is therefore blocked on the coordinator, and can&#8217;t make any progress. We can add some mechanisms to deal with this &#8211; and we&#8217;ll describe these below &#8211; but this problem of being stuck waiting for some participant to complete their part of the protocol is something that 2PC will never quite shrug off.
-  
+
 
 
 <div id="attachment_147" style="width: 510px" class="wp-caption aligncenter">
   <a href="http://the-paper-trail.org/blog/wp-content/uploads/2010/01/tpc-coordinator-fails-phase-1.png"><img src="http://the-paper-trail.org/blog/wp-content/uploads/2010/01/tpc-coordinator-fails-phase-1.png" alt="Figure 3: Two-phase commit, with coordinator failure, phase one." title="Figure 3: Two-phase commit, with coordinator failure, phase one." width="500" height="306" class="size-full wp-image-147" /></a>
-  
+
   <p class="wp-caption-text">
     Figure 3: Two-phase commit, with coordinator failure, phase one.
   </p>
@@ -123,7 +125,7 @@ What we can do to paper over this crack, however, is to get another participant 
 
 <div id="attachment_148" style="width: 280px" class="wp-caption aligncenter">
   <a href="http://the-paper-trail.org/blog/wp-content/uploads/2010/01/tpc-coordinator-fails-phase-2.png"><img src="http://the-paper-trail.org/blog/wp-content/uploads/2010/01/tpc-coordinator-fails-phase-2.png" alt="Figure 4: Two-phase commit, with coordinator failure, phase two." title="Figure 4: Two-phase commit, with coordinator failure, phase two." width="270" height="340" class="size-full wp-image-148" /></a>
-  
+
   <p class="wp-caption-text">
     Figure 4: Two-phase commit, with coordinator failure, phase two.
   </p>
