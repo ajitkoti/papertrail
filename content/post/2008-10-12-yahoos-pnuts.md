@@ -1,6 +1,6 @@
 ---
 id: 80
-title: 'Yahoo's PNUTS'
+title: "Yahoo's PNUTS"
 date: 2008-10-12T22:53:00+00:00
 author: Henry
 layout: post

@@ -1,6 +1,6 @@
 ---
 id: 139
-title: 'OSDI '08 - CuriOS: Improving Reliability Through Operating System Structure'
+title: "OSDI '08 - CuriOS: Improving Reliability Through Operating System Structure"
 date: 2009-01-19T17:28:01+00:00
 author: Henry
 layout: post

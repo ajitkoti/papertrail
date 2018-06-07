@@ -1,6 +1,6 @@
 ---
 id: 211
-title: 'Barbara Liskov's Turing Award, and Byzantine Fault Tolerance'
+title: "Barbara Liskov's Turing Award, and Byzantine Fault Tolerance"
 date: 2009-03-30T14:53:08+00:00
 author: Henry
 layout: post

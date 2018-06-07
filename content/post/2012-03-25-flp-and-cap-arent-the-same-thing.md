@@ -1,6 +1,6 @@
 ---
 id: 347
-title: 'FLP and CAP aren't the same thing'
+title: "FLP and CAP aren't the same thing"
 date: 2012-03-25T20:55:34+00:00
 author: Henry
 layout: post

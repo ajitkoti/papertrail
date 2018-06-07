@@ -1,6 +1,6 @@
 ---
 id: 86
-title: 'BigTable: Google's Distributed Data Store'
+title: "BigTable: Google's Distributed Data Store"
 date: 2008-10-29T21:53:28+00:00
 author: Henry
 layout: post

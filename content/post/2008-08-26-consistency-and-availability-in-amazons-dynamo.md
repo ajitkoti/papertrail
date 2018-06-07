@@ -1,6 +1,6 @@
 ---
 id: 51
-title: 'Consistency and availability in Amazon's Dynamo'
+title: "Consistency and availability in Amazon's Dynamo"
 date: 2008-08-26T12:50:08+00:00
 author: Henry
 layout: post

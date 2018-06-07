@@ -1,6 +1,6 @@
 ---
 id: 205
-title: 'OSDI '08: FlightPath: Obedience vs. Choice in Cooperative Services'
+title: "OSDI '08: FlightPath: Obedience vs. Choice in Cooperative Services"
 date: 2009-03-03T15:45:18+00:00
 author: Henry
 layout: post

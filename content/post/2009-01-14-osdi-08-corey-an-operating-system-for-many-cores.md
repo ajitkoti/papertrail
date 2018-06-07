@@ -1,6 +1,6 @@
 ---
 id: 133
-title: 'OSDI '08: Corey, an operating system for many cores'
+title: "OSDI '08: Corey, an operating system for many cores"
 date: 2009-01-14T22:50:19+00:00
 author: Henry
 layout: post
@@ -22,11 +22,11 @@ Just before Christmas, the systems community held one of its premier conferences
 Although I wasn't lucky enough to go, I did grab a copy of the proceedings and had a read through a bunch of the papers that interested me. I plan to post summaries of a few to this blog. I see people ask repeatedly on various forums (fora?) "what's new in computer science?". No-one seems to give a satisfactory answer, for a number of reasons. Hopefully I can redress some of the balance here, at least in the systems world.
 
 Without further ado, I'll get stuck in to one of the OSDI papers: [Corey: an operating system for many cores](http://www.mit.edu/~y_z/papers/corey-osdi08.pdf) by Boyd-Wickizer et al from a combination of MIT, Fudan University, MSR Asia and Xi'an Jiaotong University (12 authors!). Download the paper and play along at home, as usual.
-  
+
 <!--more-->
 
 
-  
+
 Almost every systems presentation you see nowadays starts off with the same observation: that CPU clock rates are stagnating and the way to improve performance is now to scale horizontally by adding more cores to the machine, rather than vertically by increasing the speed of the CPU. The 'free lunch' that CPU designers gave application programmers has finally ended, and now we have to figure out how to write programs for multiple processors.
 
 This is not an easy problem to solve. We now have to structure our programs to run in parallel, rather than sequentially. The problem with running code in parallel is that it is hard to efficiently control access to shared resources between multiple threads. Concurrent access to, for example, main memory is fraught with all kinds of difficulties. Unless the order of access is very strictly controlled, processes may mutually wait on a resource that another holds, causing deadlock, or they may observe an inconsistent view of a shared variable, or they may corrupt a shared data structure, to mention only three.
@@ -92,7 +92,7 @@ Corey is sufficiently flexible that if you do need these abstractions, they can 
 ## Evaluation and Conclusions
 
 Corey is tested on two large systems - the [
-  
+
 Phoenix](http://csl.stanford.edu/~christos/sw/phoenix/) multicore-MapReduce implementation and a bespoke web server application. MapReduce allocates a lot of memory at the map stage to store intermediate results, and this therefore stress-tests the virtual memory subsystem. Corey outperformed a Linux version by up to 10% for multiple cores (although suffered by comparison for less than 4 cores). The paper contains a great discussion of exactly why this should be, but the main message is that the Linux version spent over 10% of its time flushing out the Translation Lookaside Buffer (TLB) when a virtual address was unmapped by a worker thread. Since Corey does not explicitly share virtual addresses by default, there is no need to wipe the TLB for unshared segments since Corey knows that the mapping is not present in any other core's TLB except for the one that unmapped the segment. The reclamation is caused by libpthread unmapping thread-local stack pages - which clearly have no need to be shared. Invalidating remote TLBs is an extremely expensive operation.
 
 The evaluation also shows that selective sharing is important to achieving scalability. When sharing is turned off completely, performance scales badly as every time a page is accessed that belongs to another core, that core has to be accessed to get at the page mapping. This is again very expensive.
