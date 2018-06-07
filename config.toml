@@ -1,4 +1,4 @@
-baseURL = "https://vibrant-payne-17d96b.netlify.com"
+baseURL = "https://www.the-paper-trail.org"
 languageCode = "en-us"
 title = "The Paper Trail"
 theme = "beautifulhugo"
@@ -21,7 +21,7 @@ twitter = "henryr"
     url = ""
     weight = 1
 
-[[menu.main]]
-    name = "About"
-    url = "page/about/"
-    weight = 3
+# [[menu.main]]
+#     name = "About"
+#     url = "page/about/"
+#     weight = 3
