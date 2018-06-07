@@ -6,6 +6,7 @@ theme = "beautifulhugo"
 publishdir = "public"
 builddrafts = false
 paginate = 10
+googleAnalytics = "UA-2671099-2"
 
 [Params]
 subtitle = "Distributed systems and data processing"
