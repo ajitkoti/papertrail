@@ -15,6 +15,6 @@ tags:
 ---
 The accepted papers for SOSP 2009 are [here](http://sigops.org/sosp/sosp09/program.html). As ever, some excellent looking papers. If you search for the titles you can often turn up drafts or even the submitted versions.
 
-The best looking sessions to me are &#8216;scalability&#8217; and &#8216;clusters&#8217;, but there&#8217;s at least one great looking title in every session. I&#8217;ll start posting some reviews once I find some bandwidth (and have finished the computation theory series &#8211; next one on its way).
+The best looking sessions to me are 'scalability' and 'clusters', but there's at least one great looking title in every session. I'll start posting some reviews once I find some bandwidth (and have finished the computation theory series - next one on its way).
 
 Congratulations to all accepted authors!

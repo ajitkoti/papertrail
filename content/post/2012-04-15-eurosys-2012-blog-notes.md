@@ -9,7 +9,7 @@ permalink: /eurosys-2012-blog-notes/
 categories:
   - Uncategorized
 ---
-EuroSys 2012 was last week &#8211; one of the premier European systems conferences. Over at the Cambridge System Research Group&#8217;s [blog](http://www.syslog.cl.cam.ac.uk/), various people from the group have written notes on the papers presented. They&#8217;re very well-written summaries, and worth checking out for an overview of the research presented.
+EuroSys 2012 was last week - one of the premier European systems conferences. Over at the Cambridge System Research Group's [blog](http://www.syslog.cl.cam.ac.uk/), various people from the group have written notes on the papers presented. They're very well-written summaries, and worth checking out for an overview of the research presented.
 
   * [Day 1](http://www.syslog.cl.cam.ac.uk/2012/04/11/liveblog-eurosys-2012-day-1/)
   * [Day 2](http://www.syslog.cl.cam.ac.uk/2012/04/12/liveblog-eurosys-2012-day-2/)
