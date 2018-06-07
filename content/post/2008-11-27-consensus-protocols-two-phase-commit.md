@@ -44,10 +44,10 @@ We say that a node _decides_ once it has reached it&#8217;s decision about the v
 
 Nodes _propose_ values by suggesting them as the value to agree upon. The value that a node proposes is considered pre-determined &#8211; the protocol should not mandate the node to propose any particular value (we&#8217;ll see exactly why shortly).
 
-With those two definitions in mind, and given a set  <img src='http://s0.wp.com/latex.php?latex=N&#038;bg=ffffff&#038;fg=000000&#038;s=0' alt='N' title='N' class='latex' />of nodes in a distributed system, we&#8217;ll consider a consensus protocol correct if and only if:
+With those two definitions in mind, and given a set  \\(N\\) of nodes in a distributed system, we&#8217;ll consider a consensus protocol correct if and only if:
 
-  1. _Agreement_ &#8211; all nodes in  <img src='http://s0.wp.com/latex.php?latex=N&#038;bg=ffffff&#038;fg=000000&#038;s=0' alt='N' title='N' class='latex' />decide on the same value
-  2. _Validity_ &#8211; the value that is decided upon must have been proposed by some node in <img src='http://s0.wp.com/latex.php?latex=N&#038;bg=ffffff&#038;fg=000000&#038;s=0' alt='N' title='N' class='latex' />
+  1. _Agreement_ &#8211; all nodes in  \\(N\\) decide on the same value
+  2. _Validity_ &#8211; the value that is decided upon must have been proposed by some node in \\(N\\)
   3. _Termination_ &#8211; all nodes eventually decide
 
 Agreement is an easy one to understand: we can&#8217;t really call something consensus if no consensus has been achieved. We might consider weakening this requirement to say that only a majority of nodes have to be in agreement, but that doesn&#8217;t actually change the strength of the problem or its required solutions much.
@@ -79,7 +79,7 @@ The process that proposes values is called the _coordinator_, and does not have 
   </p>
 </div>
 
-Observe that the consensus here is in regard to whether or not to accept the value proposed by the coordinator, not on the value itself. So the nodes are not achieving consensus about what that value should be, they are achieving consensus on _whether or not to accept that value_. This is a binary variable: yes or no, or commit or abort. Participants have no mechanism by which to say &#8220;actually, I&#8217;d rather we voted on  <img src='http://s0.wp.com/latex.php?latex=x&#038;bg=ffffff&#038;fg=000000&#038;s=0' alt='x' title='x' class='latex' />than the proposed <img src='http://s0.wp.com/latex.php?latex=y&#038;bg=ffffff&#038;fg=000000&#038;s=0' alt='y' title='y' class='latex' />&#8221; &#8211; if they want to do that they have to initiate their own round of 2PC.
+Observe that the consensus here is in regard to whether or not to accept the value proposed by the coordinator, not on the value itself. So the nodes are not achieving consensus about what that value should be, they are achieving consensus on _whether or not to accept that value_. This is a binary variable: yes or no, or commit or abort. Participants have no mechanism by which to say &#8220;actually, I&#8217;d rather we voted on  \\(x\\) than the proposed \\(y\\) &#8221; &#8211; if they want to do that they have to initiate their own round of 2PC.
 
 <div id="attachment_145" style="width: 279px" class="wp-caption alignnone">
   <a href="http://the-paper-trail.org/blog/wp-content/uploads/2010/01/tpc-fault-free-phase-2.png"><img src="http://the-paper-trail.org/blog/wp-content/uploads/2010/01/tpc-fault-free-phase-2.png" alt="Figure 2: Two-phase commit, fault-free execution, phase two." title="Figure 2: Two-phase commit, fault-free execution, phase two." width="269" height="340" class="size-full wp-image-145" /></a>
@@ -95,7 +95,7 @@ Validity is also satisfied. 2PC does not trivially commit or abort &#8211; it ab
 
 Finally termination is guaranteed if every node is guaranteed to make progress and eventually return its vote to the coordinator, which then eventually communicates them to every node. Note that even asynchronous models guarantee this property in the absence of failures: eventually every message is processed and all responses are sent. There are no loops in the specification of 2PC, so no way for it to continue executing forever.
 
-Therefore, 2PC does offer a solution to consensus. It has the benefit of being quite efficient &#8211; the number of messages exchanged is  <img src='http://s0.wp.com/latex.php?latex=3n&#038;bg=ffffff&#038;fg=000000&#038;s=0' alt='3n' title='3n' class='latex' />for  <img src='http://s0.wp.com/latex.php?latex=n&#038;bg=ffffff&#038;fg=000000&#038;s=0' alt='n' title='n' class='latex' />nodes; it&#8217;s hard to see how that could be improved upon greatly.
+Therefore, 2PC does offer a solution to consensus. It has the benefit of being quite efficient &#8211; the number of messages exchanged is  \\(3n\\) for  \\(n\\) nodes; it&#8217;s hard to see how that could be improved upon greatly.
 
 However, as I have strongly hinted earlier, there is a fly in 2PC&#8217;s ointment. If nodes are allowed to fail &#8211; if even a single node can fail &#8211; then things get a good deal more complicated.
 
@@ -141,7 +141,7 @@ The co-ordinator typically will log the result of any succesful protocol in pers
 
 ## Conclusions
 
-2PC is still a very popular consensus protocol, because it has a low message complexity (although in the failure case, if every node decides to be the recovery node the complexity can go to <img src='http://s0.wp.com/latex.php?latex=O%28n%5E2%29&#038;bg=ffffff&#038;fg=000000&#038;s=0' alt='O(n^2)' title='O(n^2)' class='latex' />). A client that talks to the co-ordinator can have a reply in 3 message delays&#8217; time. This low latency is very appealing for some applications.
+2PC is still a very popular consensus protocol, because it has a low message complexity (although in the failure case, if every node decides to be the recovery node the complexity can go to \\(O(n^2)\\) ). A client that talks to the co-ordinator can have a reply in 3 message delays&#8217; time. This low latency is very appealing for some applications.
 
 However, the fact the 2PC can block on co-ordinator failure is a significant problem that dramatically hurts availability. If transactions can be rolled back at any time, then the protocol can recover as nodes time out, but if the protocol has to respect any commit decisions as permanent, the wrong failure can bring the whole thing to a juddering halt.
 
