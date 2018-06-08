@@ -22,6 +22,16 @@ twitter = "henryr"
     url = ""
     weight = 1
 
+[[menu.main]]
+  name = "Categories"
+  url = "/categories"
+  weight = 2
+
+[[menu.main]]
+  name = "Reading List"
+  url = "/page/reading-list/"
+  weight = 3
+
 # [[menu.main]]
 #     name = "About"
 #     url = "page/about/"
