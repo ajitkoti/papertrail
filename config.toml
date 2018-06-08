@@ -37,6 +37,11 @@ twitter = "henryr"
   url = "/page/dist-sys-slack/"
   weight = 4
 
+[[menu.main]]
+  name = "The CAP FAQ"
+  url = "/page/cap-faq/"
+  weight = 4
+
 # [[menu.main]]
 #     name = "About"
 #     url = "page/about/"
