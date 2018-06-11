@@ -4,12 +4,6 @@ date: 2018-06-08T16:22:58-07:00
 draft: false
 ---
 
-# The CAP FAQ
-
-    Version 1.0, May 9th 2013
-    By: Henry Robinson / henry.robinson@gmail.com / @henryr
-<pre><a href="http://the-paper-trail.org/">http://the-paper-trail.org/</a></pre>
-
 ## 0. What is this document?
 
 No subject appears to be more controversial to distributed systems
