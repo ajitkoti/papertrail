@@ -28,7 +28,7 @@ being correct and being always available in distributed systems.
 Two years later, Seth Gilbert and Professor Nancy Lynch - researchers
 in distributed systems at MIT - formalised and proved the conjecture
 in their paper "[Brewer's conjecture and the feasibility of consistent,
-available, partition-tolerant web services](http://lpd.epfl.ch/sgilbert/pubs/BrewersConjecture-SigAct.pdf)".
+available, partition-tolerant web services](https://users.ece.cmu.edu/~adrian/731-sp04/readings/GL-cap.pdf)".
 
 ## 2. What does the CAP Theorem actually say?
 
@@ -274,7 +274,7 @@ from CAP:
 * FLP deals with _consensus_, which is a similar but different problem
   to _atomic storage_.
 
-For a bit more on this topic, consult one of my (follow-on blog post)[http://the-paper-trail.org/blog/flp-and-cap-arent-the-same-thing/].
+For a bit more on this topic, consult one of my [follow-on blog post](http://the-paper-trail.org/blog/flp-and-cap-arent-the-same-thing/).
 
 ## 14. Are C and A 'spectrums'?
 
