@@ -89,6 +89,7 @@ The difference between row-based and columnar execution engines is studied in th
 #### Compression
 
 <em>Relevant papers:
+
 - [Integrating Compression and Execution on Column-Oriented Database Systems](http://db.lcs.mit.edu/projects/cstore/abadisigmod06.pdf)
 </em>
 
@@ -97,6 +98,7 @@ A column of values drawn from the same set (like item price, say) is likely to b
 #### Hybrid approaches
 
 <em>Relevant papers:
+
 - [Weaving Relations for Cache Performance](http://www.vldb.org/conf/2001/P169.pdf)
 </em>
 
