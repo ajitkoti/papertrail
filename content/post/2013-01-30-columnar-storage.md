@@ -11,7 +11,7 @@ aliases:
 categories:
   - Databases
 ---
-_You're going to hear a lot about columnar storage formats in the next few months, as a variety of distributed execution engines are beginning to consider them for their IO efficiency, and the optimisations that they open up for query execution. In this post, I'll explain why we care so much about IO efficiency and show how columnar storage - which is a simple idea - can drastically improve performance for certain workloads.</p>
+<em>You're going to hear a lot about columnar storage formats in the next few months, as a variety of distributed execution engines are beginning to consider them for their IO efficiency, and the optimisations that they open up for query execution. In this post, I'll explain why we care so much about IO efficiency and show how columnar storage - which is a simple idea - can drastically improve performance for certain workloads.
 
 Caveat: This is a personal, general research summary post, and as usual doesn't neccessarily reflect our thinking at Cloudera about columnar storage.</em>
 
@@ -73,19 +73,14 @@ The same general problem arises when preparing each tuple to write out as a resu
 
 #### Fully column-oriented execution engines
 
-_Relevant papers:
+<em>Relevant papers:
 
-[C-Store: A Column-oriented DBMS](http://people.csail.mit.edu/tdanford/6830papers/stonebraker-cstore.pdf)
-
-[The Vertica Analytic Database: C-Store 7 Years Later](http://vldb.org/pvldb/vol5/p1790_andrewlamb_vldb2012.pdf)
-
-[Materialization Strategies in a Column-Oriented DBMS](http://db.lcs.mit.edu/projects/cstore/abadiicde2007.pdf)
-
-[Performance Tradeoffs in Read-Optimized Databases](http://db.csail.mit.edu/projects/cstore/VLDB06.pdf)
-
-[Column-Stores vs. Row-Stores: How Different Are They Really?](http://db.csail.mit.edu/projects/cstore/abadi-sigmod08.pdf)
-
-_
+- [C-Store: A Column-oriented DBMS](http://people.csail.mit.edu/tdanford/6830papers/stonebraker-cstore.pdf)
+- [The Vertica Analytic Database: C-Store 7 Years Later](http://vldb.org/pvldb/vol5/p1790_andrewlamb_vldb2012.pdf)
+- [Materialization Strategies in a Column-Oriented DBMS](http://db.lcs.mit.edu/projects/cstore/abadiicde2007.pdf)
+- [Performance Tradeoffs in Read-Optimized Databases](http://db.csail.mit.edu/projects/cstore/VLDB06.pdf)
+- [Column-Stores vs. Row-Stores: How Different Are They Really?](http://db.csail.mit.edu/projects/cstore/abadi-sigmod08.pdf)
+</em>
 
 In this post, I've talked mostly about the benefits of columnar storage for scans - query operators that read data from disk, but whose ultimate output is a batch of rows for the rest of the query plan to operate on. In fact, columnar data can be integrated into pretty much every operator in a query execution engine. C-Store, the research project precursor to Vertica, explored a lot of the consequences of keeping data in columns until later on in the query plan. Eventually, of course, the columns have to be converted to rows, since the user expects a result in row-major format. The choice of when to perform this conversion is called _late or early materialisation_; viewed this way column-stores and row-stores can be considered two points on a spectrum of early to late materialisation strategies. Materialisation is studied in detail in the materialisation strategies paper above. Their conclusions are that the correct time to construct a tuple depends on the query plan (two broad patterns are considered: pipelining and parallel scans) and the query selectivity. Unfortunately, supporting both strategies would involve significant implementation cost - each operator would have to support two interfaces, and two parallel execution engines would effectively be frankensteined together. In general, late materialisation can lead to significant advantages: for example, by delaying the cost of reconstructing a tuple, it can be avoided if the tuple is ultimately filtered out by a predicate.
 
@@ -93,20 +88,16 @@ The difference between row-based and columnar execution engines is studied in th
 
 #### Compression
 
-_Relevant papers:
-
-[Integrating Compression and Execution on Column-Oriented Database Systems](http://db.lcs.mit.edu/projects/cstore/abadisigmod06.pdf)
-
-_
+<em>Relevant papers:
+- [Integrating Compression and Execution on Column-Oriented Database Systems](http://db.lcs.mit.edu/projects/cstore/abadisigmod06.pdf)
+</em>
 
 A column of values drawn from the same set (like item price, say) is likely to be highly amenable to compression since the values contained are similar, and often identical. Compressing a column has at least two significant advantages on IO cost: less space is required on disk, and less IO required to bring a column into memory (at the cost of some CPU to decompress which is usually going spare). Some compression formats - for example run-length encoding - allow execution engines to operate on the compressed data directly, filtering large chunks at a time without first decompressing them. This is another advantage of late materialisation - by keeping the data compressed until late in the query plan, these optimisations become available to many operators, not just the scan.
 
 #### Hybrid approaches
 
-_Relevant papers:
-
-[Weaving Relations for Cache Performance](http://www.vldb.org/conf/2001/P169.pdf)
-
-_
+<em>Relevant papers:
+- [Weaving Relations for Cache Performance](http://www.vldb.org/conf/2001/P169.pdf)
+</em>
 
 Since neither row-major nor column-major is strictly superior on every workload, it's natural that some research has been done into hybrid approaches that can achieve the best of both worlds. The most commonly known approach is PAX - Partition Attributes Across - which splits the table into page-sized groups of rows, and inside those groups formats the rows in column-major order. This is the same approach as the row-groups used to prevent excessive buffering described earlier, but this is not the aim of PAX; with PAX the original intention was to make CPU processing more efficient by having individual columns available contiguously to perform filtering, but also to have all the columns for a particular row nearby inside a group to make tuple reconstruction cheaper. The result of this approach is that IO costs don't go down (because each row-group is only a page long, and is therefore read in its entirety), but reconstruction and filtering is cheaper than for true columnar formats.
