@@ -94,11 +94,39 @@ The most important exercise to repeat is to read descriptions of new, real syste
 
 #### Google:
 
-[GFS](http://static.googleusercontent.com/media/research.google.com/en/us/archive/gfs-sosp2003.pdf), [Spanner](http://static.googleusercontent.com/media/research.google.com/en/us/archive/spanner-osdi2012.pdf), [F1](http://static.googleusercontent.com/media/research.google.com/en/us/pubs/archive/41344.pdf), [Chubby](http://static.googleusercontent.com/media/research.google.com/en/us/archive/chubby-osdi06.pdf), [BigTable](http://static.googleusercontent.com/media/research.google.com/en/us/archive/bigtable-osdi06.pdf), [MillWheel](http://static.googleusercontent.com/media/research.google.com/en/us/pubs/archive/41378.pdf), [Omega](http://eurosys2013.tudos.org/wp-content/uploads/2013/paper/Schwarzkopf.pdf), [Dapper](http://static.googleusercontent.com/media/research.google.com/en/us/pubs/archive/36356.pdf). [Paxos Made Live](http://www.cs.utexas.edu/users/lorenzo/corsi/cs380d/papers/paper2-1.pdf), The Tail At Scale.
+- [GFS](http://static.googleusercontent.com/media/research.google.com/en/us/archive/gfs-sosp2003.pdf)
+
+- [Spanner](http://static.googleusercontent.com/media/research.google.com/en/us/archive/spanner-osdi2012.pdf)
+
+- [F1](http://static.googleusercontent.com/media/research.google.com/en/us/pubs/archive/41344.pdf)
+
+- [Chubby](http://static.googleusercontent.com/media/research.google.com/en/us/archive/chubby-osdi06.pdf)
+
+- [BigTable](http://static.googleusercontent.com/media/research.google.com/en/us/archive/bigtable-osdi06.pdf)
+
+- [MillWheel](http://static.googleusercontent.com/media/research.google.com/en/us/pubs/archive/41378.pdf)
+
+- [Omega](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/41684.pdf)
+
+- [Dapper](http://static.googleusercontent.com/media/research.google.com/en/us/pubs/archive/36356.pdf)
+
+- [Paxos Made Live](http://www.cs.utexas.edu/users/lorenzo/corsi/cs380d/papers/paper2-1.pdf)
+
+- [The Tail At Scale](http://cseweb.ucsd.edu/~gmporter/classes/fa17/cse124/post/schedule/p74-dean.pdf)
 
 #### Not Google:
 
-[Dryad](http://research.microsoft.com/en-us/projects/dryad/eurosys07.pdf), [Cassandra](https://www.cs.cornell.edu/projects/ladis2009/papers/lakshman-ladis2009.pdf), [Ceph](http://ceph.com/papers/weil-ceph-osdi06.pdf), [RAMCloud](https://ramcloud.stanford.edu/wiki/display/ramcloud/RAMCloud+Papers), [HyperDex](http://hyperdex.org/papers/), [PNUTS](http://www.mpi-sws.org/~druschel/courses/ds/papers/cooper-pnuts.pdf)
+- [Dryad](http://research.microsoft.com/en-us/projects/dryad/eurosys07.pdf)
+
+- [Cassandra](https://www.cs.cornell.edu/projects/ladis2009/papers/lakshman-ladis2009.pdf)
+
+- [Ceph](http://ceph.com/papers/weil-ceph-osdi06.pdf)
+
+- [RAMCloud](https://ramcloud.stanford.edu/wiki/display/ramcloud/RAMCloud+Papers)
+
+- [HyperDex](http://hyperdex.org/papers/)
+
+- [PNUTS](http://www.mpi-sws.org/~druschel/courses/ds/papers/cooper-pnuts.pdf)
 
 ### Postscript
 
