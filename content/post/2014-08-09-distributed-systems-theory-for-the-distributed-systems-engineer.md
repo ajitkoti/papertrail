@@ -50,7 +50,7 @@ You should know:
 
 * The (partial) hierarchy of failure modes: [crash stop -> omission](http://www.cse.psu.edu/~gcao/teach/513-00/c7.pdf) -> [Byzantine](http://en.wikipedia.org/wiki/Byzantine_fault_tolerance). You should understand that what is possible at the top of the hierarchy must be possible at lower levels, and what is impossible at lower levels must be impossible at higher levels.
 
-* How you decide whether an event happened before another event in the absence of any shared clock. This means [Lamport clocks](http://www.stanford.edu/class/cs240/readings/lamport.pdf) and their generalisation to [Vector clocks](http://en.wikipedia.org/wiki/Vector_clock), but also see the [Dynamo paper](http://www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf).
+* How you decide whether an event happened before another event in the absence of any shared clock. This means [Lamport clocks](https://amturing.acm.org/p558-lamport.pdf) and their generalisation to [Vector clocks](http://en.wikipedia.org/wiki/Vector_clock), but also see the [Dynamo paper](http://www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf).
 
 * How big an impact the possibility of even a single failure can actually have on our ability to implement correct distributed systems (see my notes on the FLP result below).
 
