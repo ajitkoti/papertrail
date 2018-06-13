@@ -6,7 +6,7 @@ author: Henry
 layout: post
 guid: http://hnr.dnsalias.net/wordpress/?p=90
 permalink: /consensus-protocols-two-phase-commit/
-alias:
+aliases:
  - /blog/consensus-protocols-two-phase-commit/
 categories:
   - computer science

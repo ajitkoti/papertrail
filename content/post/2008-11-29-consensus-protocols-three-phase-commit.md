@@ -6,6 +6,8 @@ author: Henry
 layout: post
 guid: http://hnr.dnsalias.net/wordpress/?p=103
 permalink: /consensus-protocols-three-phase-commit/
+aliases:
+  /blog/consensus-protocols-three-phase-commit/
 categories:
   - computer science
   - Distributed systems
