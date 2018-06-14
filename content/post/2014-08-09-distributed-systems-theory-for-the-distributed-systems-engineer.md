@@ -37,6 +37,16 @@ These four readings do a pretty good job of explaining what about building distr
 
 [The fallacies of distributed computing](http://en.wikipedia.org/wiki/Fallacies_of_Distributed_Computing) - 8 fallacies of distributed computing that set the stage for the kinds of things system designers forget.
 
+You should know about _safety and liveness properties_:
+
+- *safety* properties say that nothing bad will ever happen. For example, the property
+      of never returning an inconsistent value is a safety property, as is never electing
+      two leaders at the same time.
+
+- *liveness* properties say that something good will eventually happen. For example,
+      saying that a system will eventually return a result to every API call is a liveness
+      property, as is guaranteeing that a write to disk always eventually completes.
+
 ### Failure and Time
 
 Many difficulties that the distributed systems engineer faces can be blamed on two underlying causes:
@@ -94,7 +104,9 @@ There are few agreed-upon basic building blocks in distributed systems, but more
 
 * Chain replication (a neat way of ensuring consistency and ordering of writes by organizing nodes into a virtual linked list).
     - The [original paper](http://www.cs.cornell.edu/home/rvr/papers/OSDI04.pdf)
+
     - [A set of improvements](https://www.usenix.org/legacy/event/usenix09/tech/full_papers/terrace/terrace.pdf) for read-mostly workloads
+
     - [An experiential report](https://pdfs.semanticscholar.org/6b14/dd57eaf8122dbc29d08e50749661d4602e53.pdf) by [@slfritchie](https://twitter.com/slfritchie)
 
 
