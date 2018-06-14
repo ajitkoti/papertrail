@@ -21,7 +21,7 @@ And yet, unfortunately, there's a paucity of good 'bridge' material that summari
 
 _What distributed systems theory should a distributed systems engineer know?_
 
-A little theory is, in this case, not such a dangerous thing. So I tried to come up with a list of what I consider the basic concepts that are applicable to my every-day job as a distributed systems engineer; what I consider 'table stakes' for distributed systems engineers competent enough to design a new system. Let me know what you think I missed!
+A little theory is, in this case, not such a dangerous thing. So I tried to come up with a list of what I consider the basic concepts that are applicable to my every-day job as a distributed systems engineer. Let me know what you think I missed!
 
 <!--more-->
 
@@ -41,20 +41,23 @@ These four readings do a pretty good job of explaining what about building distr
 
 Many difficulties that the distributed systems engineer faces can be blamed on two underlying causes:
 
-  1. processes may fail
-  2. there is no good way to tell that they have done so
+1. Processes may _fail_
+
+2. There is _no good way to tell that they have done so_
 
 There is a very deep relationship between what, if anything, processes share about their knowledge of _time_, what failure scenarios are possible to detect, and what algorithms and primitives may be correctly implemented. Most of the time, we assume that two different nodes have absolutely no shared knowledge of what time it is, or how quickly time passes.
 
 You should know:
 
-* The (partial) hierarchy of failure modes: [crash stop -> omission](http://www.cse.psu.edu/~gcao/teach/513-00/c7.pdf) -> [Byzantine](http://en.wikipedia.org/wiki/Byzantine_fault_tolerance). You should understand that what is possible at the top of the hierarchy must be possible at lower levels, and what is impossible at lower levels must be impossible at higher levels.
+* The (partial) hierarchy of failure modes: [crash stop -> omission](http://alvaro-videla.com/2013/12/failure-modes-in-distributed-systems.html) -> [Byzantine](http://en.wikipedia.org/wiki/Byzantine_fault_tolerance). You should understand that what is possible at the top of the hierarchy must be possible at lower levels, and what is impossible at lower levels must be impossible at higher levels.
 
 * How you decide whether an event happened before another event in the absence of any shared clock. This means [Lamport clocks](https://amturing.acm.org/p558-lamport.pdf) and their generalisation to [Vector clocks](http://en.wikipedia.org/wiki/Vector_clock), but also see the [Dynamo paper](http://www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf).
 
 * How big an impact the possibility of even a single failure can actually have on our ability to implement correct distributed systems (see my notes on the FLP result below).
 
-* Different models of time: synchronous, partially synchronous and asynchronous (links coming, when I find a good reference).
+* Different models of time: [synchronous, partially synchronous and asynchronous](https://groups.csail.mit.edu/tds/papers/Lynch/lncs90-asilomar.pdf)
+
+* That detecting failures is a fundamental problem, one that trades off _accuracy_ and _completeness_ - yet another safety vs liveness conflict. The paper that really set out failure detection as a theoretical problem is [Chandra and Toueg's 'Unreliable Failure Detectors for Reliable Distributed Systems'](http://courses.csail.mit.edu/6.852/08/papers/CT96-JACM.pdf). But there are several shorter summaries around - I quite like [this random one from Stanford](http://www.scs.stanford.edu/14au-cs244b/labs/projects/song.pdf).
 
 ### The basic tension of fault tolerance
 
@@ -80,13 +83,43 @@ There are few agreed-upon basic building blocks in distributed systems, but more
 
 * Distributed state machine replication ([Wikipedia](http://en.wikipedia.org/wiki/State_machine_replication) is ok, [Lampson's paper](http://research.microsoft.com/en-us/um/people/blampson/58-Consensus/Acrobat.pdf) is canonical but dry).
 
+* Broadcast - delivering messages to more than one node at once
+    - [Atomic broadcast](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.3.4709&rep=rep1&type=pdf) - can you deliver a message to all nodes in a group, or none?
+
+    - Gossip ([the classic paper](http://bitsavers.informatik.uni-stuttgart.de/pdf/xerox/parc/techReports/CSL-89-1_Epidemic_Algorithms_for_Replicated_Database_Maintenance.pdf))
+
+    - [Causal multicast](https://www.cs.cornell.edu/courses/cs614/2003sp/papers/BSS91.pdf)
+      (but also consider the enjoyable [back](https://www.cs.rice.edu/~alc/comp520/papers/Cheriton_Skeen.pdf)-and-[forth](https://www.cs.princeton.edu/courses/archive/fall07/cos518/papers/catocs-limits-response.pdf)
+      between Birman and Cheriton).
+
+* Chain replication (a neat way of ensuring consistency and ordering of writes by organizing nodes into a virtual linked list).
+    - The [original paper](http://www.cs.cornell.edu/home/rvr/papers/OSDI04.pdf)
+    - [A set of improvements](https://www.usenix.org/legacy/event/usenix09/tech/full_papers/terrace/terrace.pdf) for read-mostly workloads
+    - [An experiential report](https://pdfs.semanticscholar.org/6b14/dd57eaf8122dbc29d08e50749661d4602e53.pdf) by [@slfritchie](https://twitter.com/slfritchie)
+
+
 ### Fundamental Results
 
 Some facts just need to be internalised. There are more than this, naturally, but here's a flavour:
 
-  * You can't implement consistent storage and respond to all requests if you might drop messages between processes. This is the [CAP theorem](http://lpd.epfl.ch/sgilbert/pubs/BrewersConjecture-SigAct.pdf).
-  * Consensus is impossible to implement in such a way that it both a) is always correct and b) always terminates if even one machine might fail in an asynchronous system with crash-* stop failures (the FLP result). The first slides - before the proof gets going - of my [Papers We Love SF talk](http://www.slideshare.net/HenryRobinson/pwl-nonotes) do a reasonable job of explaining the result, I hope. _Suggestion: there's no real need to understand the proof_.
-  * Consensus is impossible to solve in fewer than 2 rounds of messages in general
+* You can't implement consistent storage and respond to all requests if you might drop
+  messages between processes. This is the
+  [CAP theorem](http://lpd.epfl.ch/sgilbert/pubs/BrewersConjecture-SigAct.pdf).
+
+* Consensus is impossible to implement in such a way that it both a) is always correct and
+  b) always terminates if even one machine might fail in an asynchronous system with
+  crash-* stop failures (the FLP result). The first slides - before the proof gets going -
+  of my [Papers We Love SF talk](http://www.slideshare.net/HenryRobinson/pwl-nonotes) do a
+  reasonable job of explaining the result, I hope. _Suggestion: there's no real need to
+  understand the proof_.
+
+* Consensus is impossible to solve in fewer than 2 rounds of messages in general.
+
+* Atomic broadcast is exactly as hard as consensus - in a precise sense, if you solve
+  atomic broadcast, you solve consensus, and vice
+  versa. [Chandra and Toueg](https://www.cs.utexas.edu/~lorenzo/corsi/cs380d/papers/p225-chandra.pdf)
+  prove this, but you just need to know that it's true.
+
 
 ### Real systems
 
@@ -127,6 +160,8 @@ The most important exercise to repeat is to read descriptions of new, real syste
 - [HyperDex](http://hyperdex.org/papers/)
 
 - [PNUTS](http://www.mpi-sws.org/~druschel/courses/ds/papers/cooper-pnuts.pdf)
+
+- [Azure Data Lake Store](https://dl.acm.org/citation.cfm?id=3056100)
 
 ### Postscript
 
