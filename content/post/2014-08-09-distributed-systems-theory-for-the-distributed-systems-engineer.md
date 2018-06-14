@@ -9,8 +9,12 @@ permalink: /distributed-systems-theory-for-the-distributed-systems-engineer/
 aliases:
  - /blog/distributed-systems-theory-for-the-distributed-systems-engineer/
 categories:
-  - Distributed systems
+- Distributed systems
+
 ---
+
+_Updated June 2018 with content on atomic broadcast, gossip, chain replication and more_
+
 Gwen Shapira, who at the time was an engineer at Cloudera and now is spreading the Kafka gospel, asked a question on Twitter that got me thinking.
 
 {{< tweet 497203248332165121 >}}
