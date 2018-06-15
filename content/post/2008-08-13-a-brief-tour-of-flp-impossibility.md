@@ -6,6 +6,8 @@ author: Henry
 layout: post
 guid: http://hnr.dnsalias.net/wordpress/?p=49
 permalink: /a-brief-tour-of-flp-impossibility/
+aliases:
+  - /blog/a-brief-tour-of-flp-impossibility/
 categories:
   - Distributed systems
   - Paper Walkthrough
