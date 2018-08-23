@@ -30,6 +30,8 @@ draft: false
 
 * _[HyperDex: a distributed, searchable key-value store](https://conferences.sigcomm.org/sigcomm/2012/paper/sigcomm/p25.pdf)_ - Escriva et. al., SIGCOMM 2012
 
+* _[Anna: A KVS For Any Scale](http://db.cs.berkeley.edu/jmh/papers/anna_ieee18.pdf)_ - Wu et. al., ICDE 2018
+
 ## In-network coordination
 
 * _[Eris: Coordination-Free Consistent Transactions Using In-Network Concurrency Control](https://syslab.cs.washington.edu/papers/eris-sosp17.pdf)_ - Li et. al., SOSP 2017
