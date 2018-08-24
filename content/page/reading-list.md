@@ -10,11 +10,11 @@ draft: false
 
 * _[Dynamic Control Flow in Large-Scale Machine Learning](https://dl.acm.org/citation.cfm?id=3190551)_ - Yu et. al., Eurosys 2018
 
-* _[Riffle: Optimized Shuffle Service forLarge-Scale Data Analytics](https://dl.acm.org/citation.cfm?id=3190534)_ - Zhang et. al., Eurosys 2018
+* _[Riffle: Optimized Shuffle Service for Large-Scale Data Analytics](https://dl.acm.org/citation.cfm?id=3190534)_ - Zhang et. al., Eurosys 2018
 
 * _[Service Fabric: A Distributed Platform for Building Microservices in the Cloud](https://dl.acm.org/citation.cfm?id=3190546)_ - Kakivaya et. al., EuroSys 2018
 
-## In-memory storage engines
+## Key-value storage engines
 
 * _[Cache Craftiness for Fast Multicore Key-Value Storage](https://pdos.csail.mit.edu/papers/masstree:eurosys12.pdf)_ - Mao et. al., EuroSys 2012
 
