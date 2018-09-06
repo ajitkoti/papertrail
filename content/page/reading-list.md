@@ -24,13 +24,15 @@ draft: false
 
 * _[Faster: A Concurrent Key-Value Store with In-Place Updates](https://www.microsoft.com/en-us/research/uploads/prod/2018/03/faster-sigmod18.pdf)_ - Chandramouli et. al., SIGMOD 2018
 
-* _[Speedy transactions in multicore in-memory databases](http://sigops.org/sosp/sosp13/papers/p18-tu.pdf)_ - Tu el. al., SOSP 2013
+* _[Speedy transactions in multicore in-memory databases](http://sigops.org/sosp/sosp13/papers/p18-tu.pdf)_ - Tu et. al., SOSP 2013
 
 * _[Building a Bw-Tree Takes More Than Just Buzzwords](https://db.cs.cmu.edu/papers/2018/mod342-wangA.pdf)_ - Wang et. al., SIGMOD 2018
 
 * _[HyperDex: a distributed, searchable key-value store](https://conferences.sigcomm.org/sigcomm/2012/paper/sigcomm/p25.pdf)_ - Escriva et. al., SIGCOMM 2012
 
 * _[Anna: A KVS For Any Scale](https://goo.gl/SwevUv)_ - Wu et. al., ICDE 2018
+
+* _[Cache-Conscious Concurrency Control of Main-Memory Indexes on Shared-Memory Multiprocessor Systems](https://pdfs.semanticscholar.org/c964/691f3cb8f86a19d17a3beed2f50444df4669.pdf)_ - Cha et. al., VLDB 2001
 
 ## In-network coordination
 
