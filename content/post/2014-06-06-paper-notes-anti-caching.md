@@ -10,15 +10,17 @@ categories:
   - Paper notes
 ---
 
-### Anti-Caching: A New Approach to Database Management System Architecture</a>
+### Anti-Caching: A New Approach to Database Management System Architecture
 
-_DeBrabant et. al., VLDB 2013_
+  _DeBrabant et. al., VLDB 2013_
 
 **The big idea**: Traditional databases typically rely on the OS page cache to bring hot tuples into memory and keep them there. This suffers from a number of problems:
 
 * No control over granularity of caching or eviction (so keeping a tuple in memory might keep all the tuples in its page as well, even though there's not necessarily a usage correlation between them)
 * No control over when fetches are performed (fetches are typically slow, and transactions may hold onto locks or latches while the access is being made)
 * Duplication of resources - tuples can occupy both disk blocks and memory pages.
+
+<!--more-->
 
 Instead, this paper proposes a DB-controlled mechanism for tuple caching and eviction called anti-caching. The idea is that the DB chooses exactly what to evict and when. The 'anti' aspect arises when you consider that the disk is now the place to store recently unused tuples, not the source of ground truth for the entire database. The disk, in fact, can't easily store the tuples that are in memory because, as we shall see, the anti-caching mechanism may choose to write tuples into arbitrary blocks upon eviction, which will not correspond to the pages that are already on disk, giving rise to a complex rewrite / compaction problem on eviction. The benefits are realised partly in IO: only tuples that are cold are evicted (rather than those that are unluckily sitting in the same page), and fetches and evictions may be batched.
 

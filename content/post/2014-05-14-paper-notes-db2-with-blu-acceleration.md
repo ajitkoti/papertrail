@@ -9,9 +9,14 @@ permalink: /paper-notes-db2-with-blu-acceleration/
 categories:
   - Paper notes
 ---
-### DB2 with BLU Acceleration: So Much More than Just a Column Store</a> _Raman et. al., VLDB 2013_
 
-**The big idea**: IBM's venerable DB2 technology was based on traditional row-based technology. By moving to a columnar execution engine, and crucially then by taking full advantage of the optimisations that columnar formats allow, the 'BLU Acceleration' project was able to improve read-mostly BI workloads by a 10 to 50 times speed-up. <!--more-->BLU is a single-node system which still uses the DB2 planner (although changed to generate plans for new columnar operators). This paper describes the basic workings of the execution engine itself. Of interest is the fact that the row-based execution engine can continue to co-exist with BLU (so existing tables don't have to be converted, pretty important for long-time DB2 customers). Not much is said about the overall execution model; presumably it is a traditional Volcano-style architecture with batches of column values passed between operators. Neither is much said about resource management: BLU is heavily multi-threaded, but the budgeting mechanism for threads assigned to any given query is not included.
+### DB2 with BLU Acceleration: So Much More than Just a Column Store
+
+  _Raman et. al., VLDB 2013_
+
+**The big idea**: IBM's venerable DB2 technology was based on traditional row-based technology. By moving to a columnar execution engine, and crucially then by taking full advantage of the optimisations that columnar formats allow, the 'BLU Acceleration' project was able to improve read-mostly BI workloads by a 10 to 50 times speed-up. <!--more-->
+
+BLU is a single-node system which still uses the DB2 planner (although changed to generate plans for new columnar operators). This paper describes the basic workings of the execution engine itself. Of interest is the fact that the row-based execution engine can continue to co-exist with BLU (so existing tables don't have to be converted, pretty important for long-time DB2 customers). Not much is said about the overall execution model; presumably it is a traditional Volcano-style architecture with batches of column values passed between operators. Neither is much said about resource management: BLU is heavily multi-threaded, but the budgeting mechanism for threads assigned to any given query is not included.
 
 ### On-disk format:
 

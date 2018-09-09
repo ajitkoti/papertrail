@@ -9,9 +9,8 @@ permalink: /paper-notes-stream-processing-at-google-with-millwheel/
 categories:
   - Paper notes
 ---
-</p>
 
-### MillWheel: Fault-Tolerant Stream Processing at Internet Scale</a>
+### Millwheel: Fault-Tolerant Stream Processing at Internet Scale
 
   _Akidau et. al., VLDB 2013_
 
