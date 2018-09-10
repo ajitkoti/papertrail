@@ -4,7 +4,7 @@ title: 'CAP confusion: Problems with Partition Tolerance'
 date: 2010-04-27T10:44:29+00:00
 author: Henry
 layout: post
-guid: http://the-paper-trail.org/blog/?p=290
+guid: https://the-paper-trail.org/blog/?p=290
 permalink: /cap-confusion-problems-with-partition-tolerance/
 categories:
   - Distributed systems

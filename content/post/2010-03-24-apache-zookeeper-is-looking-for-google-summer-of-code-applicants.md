@@ -4,7 +4,7 @@ title: Apache ZooKeeper is looking for Google Summer of Code applicants
 date: 2010-03-24T10:18:02+00:00
 author: Henry
 layout: post
-guid: http://the-paper-trail.org/blog/?p=286
+guid: https://the-paper-trail.org/blog/?p=286
 permalink: /apache-zookeeper-is-looking-for-google-summer-of-code-applicants/
 categories:
   - Uncategorized

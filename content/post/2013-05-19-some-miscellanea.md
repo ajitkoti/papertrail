@@ -4,7 +4,7 @@ title: Some miscellanea
 date: 2013-05-19T22:39:57+00:00
 author: Henry
 layout: post
-guid: http://the-paper-trail.org/blog/?p=510
+guid: https://the-paper-trail.org/blog/?p=510
 permalink: /some-miscellanea/
 categories:
   - Distributed systems

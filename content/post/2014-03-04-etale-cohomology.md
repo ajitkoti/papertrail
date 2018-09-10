@@ -4,7 +4,7 @@ title: Étale cohomology
 date: 2014-03-04T22:22:25+00:00
 author: Henry
 layout: post
-guid: http://the-paper-trail.org/blog/?p=554
+guid: https://the-paper-trail.org/blog/?p=554
 permalink: /etale-cohomology/
 categories:
   - mathematics
@@ -20,4 +20,4 @@ _Here's part of the introduction:_
 
 > Thus the frontiers of the subject can safely rest undisturbed by the contents of this essay. Rather it has been written with a reader in mind corresponding roughly to the author at the start of the enterprise. That is someone who is interested to find out what all the fuss was with the French algebraic geometers in the 1960s but is in need of some fairly elementary background to map out the abstractions involved and with any luck to avoid drowning in the “rising sea”.
 
-And here's the [essay itself](http://the-paper-trail.org/wp-content/uploads/2014/03/EC-Essay-1.pdf)!
+And here's the [essay itself](https://the-paper-trail.org/wp-content/uploads/2014/03/EC-Essay-1.pdf)!

@@ -4,7 +4,7 @@ title: 'Paper notes: MemC3, a better Memcached'
 date: 2014-06-18T14:36:51+00:00
 author: Henry
 layout: post
-guid: http://the-paper-trail.org/blog/?p=595
+guid: https://the-paper-trail.org/blog/?p=595
 permalink: /paper-notes-memc3-a-better-memcached/
 categories:
   - Paper notes

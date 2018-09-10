@@ -4,7 +4,7 @@ title: Columnar Storage
 date: 2013-01-30T19:46:31+00:00
 author: Henry
 layout: post
-guid: http://the-paper-trail.org/blog/?p=452
+guid: https://the-paper-trail.org/blog/?p=452
 permalink: /columnar-storage/
 aliases:
   - /blog/columnar-storage/
@@ -27,7 +27,7 @@ The other way to improve disk performance is to maximise the ratio of 'useful' b
 
 Traditional database file format store data in rows, where each row is comprised of a contiguous collection of column values. On disk, that looks roughly like the following:
 
-[<img src="http://the-paper-trail.org/wp-content/uploads/2013/01/row-major-formats.png" alt="Row-major On-disk Layout" width="588" height="267" class="aligncenter size-full wp-image-482" srcset="http://the-paper-trail.org/wp-content/uploads/2013/01/row-major-formats.png 588w, http://the-paper-trail.org/wp-content/uploads/2013/01/row-major-formats-300x136.png 300w" sizes="(max-width: 588px) 100vw, 588px" />](http://the-paper-trail.org/wp-content/uploads/2013/01/row-major-formats.png)
+[<img src="https://the-paper-trail.org/wp-content/uploads/2013/01/row-major-formats.png" alt="Row-major On-disk Layout" width="588" height="267" class="aligncenter size-full wp-image-482" srcset="https://the-paper-trail.org/wp-content/uploads/2013/01/row-major-formats.png 588w, https://the-paper-trail.org/wp-content/uploads/2013/01/row-major-formats-300x136.png 300w" sizes="(max-width: 588px) 100vw, 588px" />](https://the-paper-trail.org/wp-content/uploads/2013/01/row-major-formats.png)
 
 This _row-major_ layout usually has a header for each row that describes, for example, which columns in the row are NULL. Each column value is then stored contiguously after the header, followed by another row with its own header, and so on.
 
@@ -39,7 +39,7 @@ However, there is a general consensus that these <tt>SELECT *</tt> kinds of quer
 
 Instead of a format that makes it efficient to read entire rows, it's advantageous for analytical workloads to make it efficient to read entire _columns_ at once. Based on our understanding of what makes disks efficient, we can see that the obvious approach is to store columns values densely and contiguously on disk. This is the basic idea behind columnar file formats. The following diagram shows what this looks like on disk:
 
-[<img src="http://the-paper-trail.org/wp-content/uploads/2013/01/column-major-formats.png" alt="Column-Major On-disk Layout" width="588" height="474" class="aligncenter size-full wp-image-481" srcset="http://the-paper-trail.org/wp-content/uploads/2013/01/column-major-formats.png 588w, http://the-paper-trail.org/wp-content/uploads/2013/01/column-major-formats-300x241.png 300w" sizes="(max-width: 588px) 100vw, 588px" />](http://the-paper-trail.org/wp-content/uploads/2013/01/column-major-formats.png)
+[<img src="https://the-paper-trail.org/wp-content/uploads/2013/01/column-major-formats.png" alt="Column-Major On-disk Layout" width="588" height="474" class="aligncenter size-full wp-image-481" srcset="https://the-paper-trail.org/wp-content/uploads/2013/01/column-major-formats.png 588w, https://the-paper-trail.org/wp-content/uploads/2013/01/column-major-formats-300x241.png 300w" sizes="(max-width: 588px) 100vw, 588px" />](https://the-paper-trail.org/wp-content/uploads/2013/01/column-major-formats.png)
 
 A row is split across several column blocks, which may even be separate files on disk. Reading an entire column now requires a single seek plus a large contiguous read, but the read length is much less than for extracting a single column from a row-major format. In this figure we have organised the columns so that they are all ordered in the same way; later we'll see how we can relax that restriction and use different orderings to make different queries more efficient.
 
@@ -47,11 +47,11 @@ A row is split across several column blocks, which may even be separate files on
 
 The diagram below shows what a simple query plan for <tt>SELECT col_b FROM table WHERE col_a > 5</tt> might look like for a query engine reading from a traditional row-major file format. A scan node reads every row in turn from disk, and streams the rows to a predicate evaluation node, which looks at the value of <tt>col_a</tt> in each row. Those rows that pass the predicate are sent to a projection node which constructs result tuples containing <tt>col_b</tt>.
 
-[<img src="http://the-paper-trail.org/wp-content/uploads/2013/01/row-query-plan.png" alt="Row Query Plan" width="549" height="137" class="aligncenter size-full wp-image-487" />](http://the-paper-trail.org/wp-content/uploads/2013/01/row-query-plan.png)
+[<img src="https://the-paper-trail.org/wp-content/uploads/2013/01/row-query-plan.png" alt="Row Query Plan" width="549" height="137" class="aligncenter size-full wp-image-487" />](https://the-paper-trail.org/wp-content/uploads/2013/01/row-query-plan.png)
 
 Compare that to the query plan below, for a query engine reading from columnar storage. Each column referenced in the query is read independently. The predicate is evaluated over <tt>col_a</tt> to produce a list of matching row IDs. <tt>col_b</tt> is then scanned with respect to that list of IDs, and each matching value is returned as a query result. This query plan performs two IO seeks (to find the beginning of both column files), instead of one, and issues two consecutive reads rather than one large read. The pattern of using IDs for each column value is very common to make reconstructing rows easier; usually columns are all sorted on the same key so the Nth value of <tt>col_a</tt> belongs to the same row as the Nth value of <tt>col_b</tt>.
 
-[<img src="http://the-paper-trail.org/wp-content/uploads/2013/01/columnar-query-plan.png" alt="Columnar Query Plan" width="497" height="137" class="aligncenter size-full wp-image-478" srcset="http://the-paper-trail.org/wp-content/uploads/2013/01/columnar-query-plan.png 497w, http://the-paper-trail.org/wp-content/uploads/2013/01/columnar-query-plan-300x82.png 300w" sizes="(max-width: 497px) 100vw, 497px" />](http://the-paper-trail.org/wp-content/uploads/2013/01/columnar-query-plan.png)
+[<img src="https://the-paper-trail.org/wp-content/uploads/2013/01/columnar-query-plan.png" alt="Columnar Query Plan" width="497" height="137" class="aligncenter size-full wp-image-478" srcset="https://the-paper-trail.org/wp-content/uploads/2013/01/columnar-query-plan.png 497w, https://the-paper-trail.org/wp-content/uploads/2013/01/columnar-query-plan-300x82.png 300w" sizes="(max-width: 497px) 100vw, 497px" />](https://the-paper-trail.org/wp-content/uploads/2013/01/columnar-query-plan.png)
 
 The extra IO cost for the row-format query is therefore the time it takes to read all those extra columns. Let's assume the table is 10 columns wide, ten million rows long and each value is 4 bytes, which are all conservative estimates. Then there is an extra 8 \* 1M \* 4 bytes, or 32MB of extra data read, which is ~3.20s on a query that would likely otherwise take 800ms; an overhead of 300%. When disks are less performant, or column widths wider, the effect becomes exaggerated.
 

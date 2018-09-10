@@ -4,7 +4,7 @@ title: 'STM: Not (much more than) a research toy?'
 date: 2011-04-21T13:02:38+00:00
 author: Henry
 layout: post
-guid: http://the-paper-trail.org/blog/?p=311
+guid: https://the-paper-trail.org/blog/?p=311
 permalink: /stm-not-much-more-than-a-research-toy/
 categories:
   - Operating systems

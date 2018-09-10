@@ -4,7 +4,7 @@ title: 'Paper notes: DB2 with BLU Acceleration'
 date: 2014-05-14T18:02:15+00:00
 author: admin
 layout: post
-guid: http://the-paper-trail.org/blog/?p=568
+guid: https://the-paper-trail.org/blog/?p=568
 permalink: /paper-notes-db2-with-blu-acceleration/
 categories:
   - Paper notes

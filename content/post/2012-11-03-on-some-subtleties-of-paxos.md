@@ -4,7 +4,7 @@ title: On some subtleties of Paxos
 date: 2012-11-03T19:02:22+00:00
 author: Henry
 layout: post
-guid: http://the-paper-trail.org/blog/?p=427
+guid: https://the-paper-trail.org/blog/?p=427
 permalink: /on-some-subtleties-of-paxos/
 aliases:
   - blog/on-some-subtleties-of-paxos

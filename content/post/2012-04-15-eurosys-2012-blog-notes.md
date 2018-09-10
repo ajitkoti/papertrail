@@ -4,7 +4,7 @@ title: EuroSys 2012 blog notes
 date: 2012-04-15T18:20:33+00:00
 author: Henry
 layout: post
-guid: http://the-paper-trail.org/blog/?p=374
+guid: https://the-paper-trail.org/blog/?p=374
 permalink: /eurosys-2012-blog-notes/
 categories:
   - Uncategorized

@@ -4,7 +4,7 @@ title: On Raft, briefly
 date: 2013-10-31T12:03:51+00:00
 author: Henry
 layout: post
-guid: http://the-paper-trail.org/blog/?p=528
+guid: https://the-paper-trail.org/blog/?p=528
 permalink: /on-raft-briefly/
 categories:
   - Uncategorized

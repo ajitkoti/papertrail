@@ -4,7 +4,7 @@ title: Cloudera Impala
 date: 2012-11-04T18:12:12+00:00
 author: Henry
 layout: post
-guid: http://the-paper-trail.org/blog/?p=438
+guid: https://the-paper-trail.org/blog/?p=438
 permalink: /cloudera-impala/
 categories:
   - Cloudera Impala

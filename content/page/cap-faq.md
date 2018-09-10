@@ -253,7 +253,7 @@ messages are delivered.
 
 ## 13. What, if any, is the relationship between FLP and CAP?
 
-The Fischer, Lynch and Patterson theorem ('FLP') (see [my blog post](http://the-paper-trail.org/blog/a-brief-tour-of-flp-impossibility/) for a link
+The Fischer, Lynch and Patterson theorem ('FLP') (see [my blog post](https://the-paper-trail.org/blog/a-brief-tour-of-flp-impossibility/) for a link
 to the paper and a proof explanation) is an extraordinary
 impossibility result from nearly thirty years ago, which determined
 that the problem of consensus - having all nodes agree on a common
@@ -274,7 +274,7 @@ from CAP:
 * FLP deals with _consensus_, which is a similar but different problem
   to _atomic storage_.
 
-For a bit more on this topic, consult one of my [follow-on blog post](http://the-paper-trail.org/blog/flp-and-cap-arent-the-same-thing/).
+For a bit more on this topic, consult one of my [follow-on blog post](https://the-paper-trail.org/blog/flp-and-cap-arent-the-same-thing/).
 
 ## 14. Are C and A 'spectrums'?
 

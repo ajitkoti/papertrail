@@ -4,7 +4,7 @@ title: Should I take a systems reading course?
 date: 2012-03-09T18:05:13+00:00
 author: Henry
 layout: post
-guid: http://the-paper-trail.org/blog/?p=342
+guid: https://the-paper-trail.org/blog/?p=342
 permalink: /should-i-take-a-systems-reading-course/
 categories:
   - Uncategorized

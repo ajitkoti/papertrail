@@ -4,7 +4,7 @@ title: 'Paper notes: Stream Processing at Google with Millwheel'
 date: 2014-06-04T12:07:04+00:00
 author: Henry
 layout: post
-guid: http://the-paper-trail.org/blog/?p=582
+guid: https://the-paper-trail.org/blog/?p=582
 permalink: /paper-notes-stream-processing-at-google-with-millwheel/
 categories:
   - Paper notes

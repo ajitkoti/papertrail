@@ -72,7 +72,7 @@ This skeleton describes possibly the simplest, most often used consensus algorit
 The process that proposes values is called the _coordinator_, and does not have to be specially elected - any node can act as the coordinator if they want to and therefore initiate a round of 2PC.
 
 <div id="attachment_142" style="width: 510px" class="wp-caption alignnone">
-  <a href="http://the-paper-trail.org/wp-content/uploads/2010/01/tpc-fault-free-phase-1.png"><img class="size-full wp-image-142" title="Figure 1: Two-phase commit, fault-free execution, phase one." src="http://the-paper-trail.org/wp-content/uploads/2010/01/tpc-fault-free-phase-1.png" alt="Figure 1: Two-phase commit, fault-free execution, phase one." width="500" height="318" /></a>
+  <a href="https://the-paper-trail.org/wp-content/uploads/2010/01/tpc-fault-free-phase-1.png"><img class="size-full wp-image-142" title="Figure 1: Two-phase commit, fault-free execution, phase one." src="https://the-paper-trail.org/wp-content/uploads/2010/01/tpc-fault-free-phase-1.png" alt="Figure 1: Two-phase commit, fault-free execution, phase one." width="500" height="318" /></a>
 
   <p class="wp-caption-text">
     Figure 1: Two-phase commit, fault-free execution, phase one.
@@ -82,7 +82,7 @@ The process that proposes values is called the _coordinator_, and does not have 
 Observe that the consensus here is in regard to whether or not to accept the value proposed by the coordinator, not on the value itself. So the nodes are not achieving consensus about what that value should be, they are achieving consensus on _whether or not to accept that value_. This is a binary variable: yes or no, or commit or abort. Participants have no mechanism by which to say "actually, I'd rather we voted on  \\(x\\) than the proposed \\(y\\) " - if they want to do that they have to initiate their own round of 2PC.
 
 <div id="attachment_145" style="width: 279px" class="wp-caption alignnone">
-  <a href="http://the-paper-trail.org/wp-content/uploads/2010/01/tpc-fault-free-phase-2.png"><img src="http://the-paper-trail.org/wp-content/uploads/2010/01/tpc-fault-free-phase-2.png" alt="Figure 2: Two-phase commit, fault-free execution, phase two." title="Figure 2: Two-phase commit, fault-free execution, phase two." width="269" height="340" class="size-full wp-image-145" /></a>
+  <a href="https://the-paper-trail.org/wp-content/uploads/2010/01/tpc-fault-free-phase-2.png"><img src="https://the-paper-trail.org/wp-content/uploads/2010/01/tpc-fault-free-phase-2.png" alt="Figure 2: Two-phase commit, fault-free execution, phase two." title="Figure 2: Two-phase commit, fault-free execution, phase two." width="269" height="340" class="size-full wp-image-145" /></a>
 
   <p class="wp-caption-text">
     Figure 2: Two-phase commit, fault-free execution, phase two.
@@ -114,7 +114,7 @@ The protocol is therefore blocked on the coordinator, and can't make any progres
 
 
 <div id="attachment_147" style="width: 510px" class="wp-caption aligncenter">
-  <a href="http://the-paper-trail.org/wp-content/uploads/2010/01/tpc-coordinator-fails-phase-1.png"><img src="http://the-paper-trail.org/wp-content/uploads/2010/01/tpc-coordinator-fails-phase-1.png" alt="Figure 3: Two-phase commit, with coordinator failure, phase one." title="Figure 3: Two-phase commit, with coordinator failure, phase one." width="500" height="306" class="size-full wp-image-147" /></a>
+  <a href="https://the-paper-trail.org/wp-content/uploads/2010/01/tpc-coordinator-fails-phase-1.png"><img src="https://the-paper-trail.org/wp-content/uploads/2010/01/tpc-coordinator-fails-phase-1.png" alt="Figure 3: Two-phase commit, with coordinator failure, phase one." title="Figure 3: Two-phase commit, with coordinator failure, phase one." width="500" height="306" class="size-full wp-image-147" /></a>
 
   <p class="wp-caption-text">
     Figure 3: Two-phase commit, with coordinator failure, phase one.
@@ -124,7 +124,7 @@ The protocol is therefore blocked on the coordinator, and can't make any progres
 What we can do to paper over this crack, however, is to get another participant to take over the job of the co-ordinator once we realise that it has crashed. When a timeout occurs at some node, we can force that node to finish off the protocol that the co-ordinator started. This node can contact all the other participants, as in a phase one message, and find out which way they voted. This requires all nodes to keep in persistent storage the results of all 2PC executions, until they know that every other node has committed or aborted - otherwise if all nodes forget what they did for a given execution then the recovery node that takes over from the co-ordinator will have no way of recovering the state of the transaction. It's also possible that only one node might know the result of the transaction if the co-ordinator fails in phase two before all nodes are told of they abort / commit decision.
 
 <div id="attachment_148" style="width: 280px" class="wp-caption aligncenter">
-  <a href="http://the-paper-trail.org/wp-content/uploads/2010/01/tpc-coordinator-fails-phase-2.png"><img src="http://the-paper-trail.org/wp-content/uploads/2010/01/tpc-coordinator-fails-phase-2.png" alt="Figure 4: Two-phase commit, with coordinator failure, phase two." title="Figure 4: Two-phase commit, with coordinator failure, phase two." width="270" height="340" class="size-full wp-image-148" /></a>
+  <a href="https://the-paper-trail.org/wp-content/uploads/2010/01/tpc-coordinator-fails-phase-2.png"><img src="https://the-paper-trail.org/wp-content/uploads/2010/01/tpc-coordinator-fails-phase-2.png" alt="Figure 4: Two-phase commit, with coordinator failure, phase two." title="Figure 4: Two-phase commit, with coordinator failure, phase two." width="270" height="340" class="size-full wp-image-148" /></a>
 
   <p class="wp-caption-text">
     Figure 4: Two-phase commit, with coordinator failure, phase two.

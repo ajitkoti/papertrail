@@ -4,7 +4,7 @@ title: 'Paper notes: Anti-Caching'
 date: 2014-06-06T11:03:39+00:00
 author: Henry
 layout: post
-guid: http://the-paper-trail.org/blog/?p=590
+guid: https://the-paper-trail.org/blog/?p=590
 permalink: /paper-notes-anti-caching/
 categories:
   - Paper notes

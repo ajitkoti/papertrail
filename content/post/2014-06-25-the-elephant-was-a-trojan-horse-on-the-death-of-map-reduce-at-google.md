@@ -4,7 +4,7 @@ title: 'The Elephant was a Trojan Horse: On the Death of Map-Reduce at Google'
 date: 2014-06-25T17:49:39+00:00
 author: Henry
 layout: post
-guid: http://the-paper-trail.org/blog/?p=604
+guid: https://the-paper-trail.org/blog/?p=604
 permalink: /the-elephant-was-a-trojan-horse-on-the-death-of-map-reduce-at-google/
 categories:
   - Uncategorized

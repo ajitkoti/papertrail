@@ -4,7 +4,7 @@ title: Make any algorithm lock-free with this one crazy trick
 date: 2016-05-25T22:51:03+00:00
 author: admin
 layout: post
-guid: http://the-paper-trail.org/blog/?p=641
+guid: https://the-paper-trail.org/blog/?p=641
 permalink: /make-any-algorithm-lock-free-with-this-one-crazy-trick/
 categories:
   - Uncategorized

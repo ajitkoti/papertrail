@@ -31,7 +31,7 @@ In fact, this is completely true. Consensus with arbitrary packet loss is an uns
 (A much more formal presentation of this proof can be found in Lynch's [Distributed Algorithms](http://www.amazon.co.uk/Distributed-Algorithms-Kaufmann-Management-Systems/dp/1558603484/ref=sr_1_1?ie=UTF8&s=books&qid=1231768254&sr=8-1), chapter 5.)
 
 <div id="attachment_127" style="width: 297px" class="wp-caption alignnone">
-  <a href="http://the-paper-trail.org/wp-content/uploads/2010/01/figure-1.png"><img src="http://the-paper-trail.org/wp-content/uploads/2010/01/figure-1.png" alt="Figure 1: Two party consensus protocol - Execution A" title="Figure 1: Two party consensus protocol -  Execution A" width="287" height="300" class="size-medium wp-image-127" /></a>
+  <a href="https://the-paper-trail.org/wp-content/uploads/2010/01/figure-1.png"><img src="https://the-paper-trail.org/wp-content/uploads/2010/01/figure-1.png" alt="Figure 1: Two party consensus protocol - Execution A" title="Figure 1: Two party consensus protocol -  Execution A" width="287" height="300" class="size-medium wp-image-127" /></a>
   
   <p class="wp-caption-text">
     Figure 1: Two party consensus protocol - Execution A
@@ -43,7 +43,7 @@ Figure 1 shows an instance of an abstract consensus protocol between two parties
 Recall from previous discussions of consensus that any legitimate protocol must be _valid_ - that is, the value agreed upon must be proposed by one of the participants. So let's imagine that this was the execution when both parties started with 1 as their proposed value (for binary consensus), so the only valid result is for both parties to decide 1.
 
 <div id="attachment_128" style="width: 297px" class="wp-caption alignnone">
-  <a href="http://the-paper-trail.org/wp-content/uploads/2010/01/figure-2.png"><img src="http://the-paper-trail.org/wp-content/uploads/2010/01/figure-2.png" alt="Figure 2: Two-party consensus with single message loss - Execution B" title="Figure 2: Two-party consensus with single message loss - Execution B" width="287" height="300" class="size-medium wp-image-128" /></a>
+  <a href="https://the-paper-trail.org/wp-content/uploads/2010/01/figure-2.png"><img src="https://the-paper-trail.org/wp-content/uploads/2010/01/figure-2.png" alt="Figure 2: Two-party consensus with single message loss - Execution B" title="Figure 2: Two-party consensus with single message loss - Execution B" width="287" height="300" class="size-medium wp-image-128" /></a>
   
   <p class="wp-caption-text">
     Figure 2: Two-party consensus with single message loss - Execution B
@@ -53,7 +53,7 @@ Recall from previous discussions of consensus that any legitimate protocol must 
 Now, imagine what happens when the last message in the trace is lost. Figure 2 shows the situation - we'll call this trace Execution B. Process 2 sees exactly the same message trace as Execution A, and so must decide 1 as before - our protocol executes deterministically at each process, and therefore depends only on the initial state and the list of messages received. Therefore, by agreement, process 1 must also decide 1 even though it didn't receive the last message in the protocol.
 
 <div id="attachment_129" style="width: 297px" class="wp-caption alignnone">
-  <a href="http://the-paper-trail.org/wp-content/uploads/2010/01/figure-3.png"><img src="http://the-paper-trail.org/wp-content/uploads/2010/01/figure-3.png" alt="Figure 3: Two-party consensus with double message loss - Execution C" title="Figure 3: Two-party consensus with double message loss - Execution C" width="287" height="300" class="size-medium wp-image-129" /></a>
+  <a href="https://the-paper-trail.org/wp-content/uploads/2010/01/figure-3.png"><img src="https://the-paper-trail.org/wp-content/uploads/2010/01/figure-3.png" alt="Figure 3: Two-party consensus with double message loss - Execution C" title="Figure 3: Two-party consensus with double message loss - Execution C" width="287" height="300" class="size-medium wp-image-129" /></a>
   
   <p class="wp-caption-text">
     Figure 3: Two-party consensus with double message loss - Execution C
@@ -63,7 +63,7 @@ Now, imagine what happens when the last message in the trace is lost. Figure 2 s
 We can then make the same argument about the second-to-last message. Figure 3 shows Execution C, in which process 1 sees exactly the same trace as Execution B, and therefore must decide 1 as before. So, again, by agreement, process 2 must decide 1 again.
 
 <div id="attachment_130" style="width: 297px" class="wp-caption alignnone">
-  <a href="http://the-paper-trail.org/wp-content/uploads/2010/01/figure-4.png"><img src="http://the-paper-trail.org/wp-content/uploads/2010/01/figure-4.png" alt="Figure 4: Two-party consensus with only one delivered message - Execution D" title="Figure 4: Two-party consensus with only one delivered message - Execution D" width="287" height="300" class="size-medium wp-image-130" /></a>
+  <a href="https://the-paper-trail.org/wp-content/uploads/2010/01/figure-4.png"><img src="https://the-paper-trail.org/wp-content/uploads/2010/01/figure-4.png" alt="Figure 4: Two-party consensus with only one delivered message - Execution D" title="Figure 4: Two-party consensus with only one delivered message - Execution D" width="287" height="300" class="size-medium wp-image-130" /></a>
   
   <p class="wp-caption-text">
     Figure 4: Two-party consensus with only one delivered message - Execution D
@@ -75,7 +75,7 @@ We can then make the same argument about the second-to-last message. Figure 3 sh
 By repeated application of this argument we can unravel the protocol to that seen in Execution D in figure 4. In this execution, process 1 is sending a single message to process 2. Our inductive argument tells us that both process 1 and process 2 must decide 1, even though process 1 doesn't receive any messages! Consider what happens if instead of proposing 1 initially, process 2 proposes 0. It must still decide 1, because process 1 will decide 1 and we require both processes to decide the same value.
 
 <div id="attachment_122" style="width: 310px" class="wp-caption alignnone">
-  <a href="http://the-paper-trail.org/wp-content/uploads/2010/01/figure-5.png"><img class="size-medium wp-image-122" title="Figure 5" src="http://the-paper-trail.org/wp-content/uploads/2010/01/figure-5.png" alt="Figure 5: Two-party consensus with no messages delivered - Execution E" width="300" height="216" /></a>
+  <a href="https://the-paper-trail.org/wp-content/uploads/2010/01/figure-5.png"><img class="size-medium wp-image-122" title="Figure 5" src="https://the-paper-trail.org/wp-content/uploads/2010/01/figure-5.png" alt="Figure 5: Two-party consensus with no messages delivered - Execution E" width="300" height="216" /></a>
   
   <p class="wp-caption-text">
     Figure 5: Two-party consensus with no messages delivered - Execution E

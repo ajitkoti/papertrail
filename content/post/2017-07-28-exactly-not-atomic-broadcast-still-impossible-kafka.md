@@ -4,7 +4,7 @@ title: 'Exactly-once or not, atomic broadcast is still impossible in Kafka - or 
 date: 2017-07-28T16:23:38+00:00
 author: admin
 layout: post
-guid: http://the-paper-trail.org/blog/?p=660
+guid: https://the-paper-trail.org/blog/?p=660
 permalink: /exactly-not-atomic-broadcast-still-impossible-kafka/
 categories:
   - Uncategorized

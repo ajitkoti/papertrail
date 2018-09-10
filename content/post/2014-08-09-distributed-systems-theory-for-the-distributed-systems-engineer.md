@@ -4,7 +4,7 @@ title: Distributed systems theory for the distributed systems engineer
 date: 2014-08-09T20:45:38+00:00
 author: Henry
 layout: post
-guid: http://the-paper-trail.org/blog/?p=617
+guid: https://the-paper-trail.org/blog/?p=617
 permalink: /distributed-systems-theory-for-the-distributed-systems-engineer/
 aliases:
  - /blog/distributed-systems-theory-for-the-distributed-systems-engineer/
@@ -81,7 +81,7 @@ You should know:
 
 * The quorum technique for ensuring single-copy serialisability. See [Skeen's original paper](https://ecommons.library.cornell.edu/bitstream/1813/6323/1/82-483.pdf), but perhaps better is [Wikipedia's entry](http://en.wikipedia.org/wiki/Quorum_(distributed_computing)).
 
-* About [2-phase-commit](http://the-paper-trail.org/blog/consensus-protocols-two-phase-commit/), [3-phase-commit](http://the-paper-trail.org/blog/consensus-protocols-three-phase-commit/) and [Paxos](http://the-paper-trail.org/blog/consensus-protocols-paxos/), and why they have different fault-tolerance properties.
+* About [2-phase-commit](https://the-paper-trail.org/blog/consensus-protocols-two-phase-commit/), [3-phase-commit](https://the-paper-trail.org/blog/consensus-protocols-three-phase-commit/) and [Paxos](https://the-paper-trail.org/blog/consensus-protocols-paxos/), and why they have different fault-tolerance properties.
 
 * How eventual consistency, and other techniques, seek to avoid this tension at the cost of weaker guarantees about system behaviour. The [Dynamo paper](http://www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf) is a great place to start, but also Pat Helland's classic [Life Beyond Transactions](http://www.ics.uci.edu/~cs223/papers/cidr07p15.pdf) is a must-read.
 

@@ -4,7 +4,7 @@ title: The Theorem That Will Not Go Away
 date: 2010-10-07T23:28:55+00:00
 author: Henry
 layout: post
-guid: http://the-paper-trail.org/blog/?p=297
+guid: https://the-paper-trail.org/blog/?p=297
 permalink: /the-theorem-that-will-not-go-away/
 categories:
   - computer science

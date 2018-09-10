@@ -4,12 +4,12 @@ title: How consistent is eventual consistency?
 date: 2012-01-04T15:22:05+00:00
 author: Henry
 layout: post
-guid: http://the-paper-trail.org/blog/?p=334
+guid: https://the-paper-trail.org/blog/?p=334
 permalink: /how-consistent-is-eventual-consistency/
 categories:
   - Uncategorized
 ---
-[This page](http://www.eecs.berkeley.edu/~pbailis/projects/pbs/ "PBS"), from the 'PBS' team at Berkeley's [AMPLab](http://amplab.cs.berkeley.edu/) is quite interesting. It allows you to tweak the parameters of a [Dynamo](http://the-paper-trail.org/blog/?p=51 "Dynamo")-style system, then by running a series of Monte Carlo simulations gives an estimate of the likelihood of staleness of reads after writes. 
+[This page](http://www.eecs.berkeley.edu/~pbailis/projects/pbs/ "PBS"), from the 'PBS' team at Berkeley's [AMPLab](http://amplab.cs.berkeley.edu/) is quite interesting. It allows you to tweak the parameters of a [Dynamo](https://the-paper-trail.org/blog/?p=51 "Dynamo")-style system, then by running a series of Monte Carlo simulations gives an estimate of the likelihood of staleness of reads after writes. 
 
 Since the Dynamo paper appeared and really popularised eventual consistency, the debate has focused on a fairly binary treatment of its merits. Either you can't afford to be wrong, ever, or it's ok to have your reads be stale for a potentially unbounded amount of time. In fact, the suitability of eventual consistency is dependent partly on the _distribution_ of stale reads; that is the speed of quiescence of a system immediately after a write. If the probability of a ever seeing a stale read due to consistency delays can be reduced to smaller than the probability of every machine in the network simultaneously catching fire, we can probably make use of eventual consistency.
 
