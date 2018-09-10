@@ -29,7 +29,7 @@ A little theory is, in this case, not such a dangerous thing. So I tried to come
 
 <!--more-->
 
-### First steps
+##### First steps
 
 These four readings do a pretty good job of explaining what about building distributed systems is challenging. Collectively they outline a set of abstract but technical difficulties that the distributed systems engineer has to overcome, and set the stage for the more detailed investigation in later sections
 
@@ -51,7 +51,7 @@ You should know about _safety and liveness properties_:
       saying that a system will eventually return a result to every API call is a liveness
       property, as is guaranteeing that a write to disk always eventually completes.
 
-### Failure and Time
+##### Failure and Time
 
 Many difficulties that the distributed systems engineer faces can be blamed on two underlying causes:
 
@@ -73,7 +73,7 @@ You should know:
 
 * That detecting failures is a fundamental problem, one that trades off _accuracy_ and _completeness_ - yet another safety vs liveness conflict. The paper that really set out failure detection as a theoretical problem is [Chandra and Toueg's 'Unreliable Failure Detectors for Reliable Distributed Systems'](http://courses.csail.mit.edu/6.852/08/papers/CT96-JACM.pdf). But there are several shorter summaries around - I quite like [this random one from Stanford](http://www.scs.stanford.edu/14au-cs244b/labs/projects/song.pdf).
 
-### The basic tension of fault tolerance
+##### The basic tension of fault tolerance
 
 A system that tolerates some faults without degrading must be able to act as though those faults had not occurred. This means usually that parts of the system must do work redundantly, but doing more work than is absolutely necessary typically carries a cost both in performance and resource consumption. This is the basic tension of adding fault tolerance to a system.
 
@@ -85,7 +85,7 @@ You should know:
 
 * How eventual consistency, and other techniques, seek to avoid this tension at the cost of weaker guarantees about system behaviour. The [Dynamo paper](http://www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf) is a great place to start, but also Pat Helland's classic [Life Beyond Transactions](http://www.ics.uci.edu/~cs223/papers/cidr07p15.pdf) is a must-read.
 
-### Basic primitives
+##### Basic primitives
 
 There are few agreed-upon basic building blocks in distributed systems, but more are beginning to emerge. You should know what the following problems are, and where to find a solution for them:
 
@@ -114,7 +114,7 @@ There are few agreed-upon basic building blocks in distributed systems, but more
     - [An experiential report](https://pdfs.semanticscholar.org/6b14/dd57eaf8122dbc29d08e50749661d4602e53.pdf) by [@slfritchie](https://twitter.com/slfritchie)
 
 
-### Fundamental Results
+##### Fundamental Results
 
 Some facts just need to be internalised. There are more than this, naturally, but here's a flavour:
 
@@ -137,11 +137,11 @@ Some facts just need to be internalised. There are more than this, naturally, bu
   prove this, but you just need to know that it's true.
 
 
-### Real systems
+##### Real systems
 
 The most important exercise to repeat is to read descriptions of new, real systems, and to critique their design decisions. Do this over and over again. Some suggestions:
 
-#### Google:
+### Google:
 
 - [GFS](http://static.googleusercontent.com/media/research.google.com/en/us/archive/gfs-sosp2003.pdf)
 
@@ -163,7 +163,7 @@ The most important exercise to repeat is to read descriptions of new, real syste
 
 - [The Tail At Scale](http://cseweb.ucsd.edu/~gmporter/classes/fa17/cse124/post/schedule/p74-dean.pdf)
 
-#### Not Google:
+### Not Google:
 
 - [Dryad](http://research.microsoft.com/en-us/projects/dryad/eurosys07.pdf)
 
@@ -179,6 +179,6 @@ The most important exercise to repeat is to read descriptions of new, real syste
 
 - [Azure Data Lake Store](https://dl.acm.org/citation.cfm?id=3056100)
 
-### Postscript
+##### Postscript
 
 If you tame all the concepts and techniques on this list, I'd [like to talk to you](mailto:henry@cloudera.com) about engineering positions working with the menagerie of distributed systems we curate at Cloudera.

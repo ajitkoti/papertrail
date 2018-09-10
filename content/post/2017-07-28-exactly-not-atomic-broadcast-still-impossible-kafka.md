@@ -9,9 +9,10 @@ permalink: /exactly-not-atomic-broadcast-still-impossible-kafka/
 categories:
   - Uncategorized
 ---
-## **Intro**
-
 _**Update**: Jay responded on Twitter, which you can read [here.](https://twitter.com/jaykreps/status/891096229504966656)_
+
+##### Intro
+
 
 I read an [article recently by Jay Kreps](https://t.co/xrA4IROUue) about a feature for delivering messages 'exactly-once' within the Kafka framework. Everyone's excited, and for good reason. But there's been a bit of a side story about what exactly 'exactly-once' means, and what Kafka can actually do.
 
@@ -27,7 +28,7 @@ I have since left the pub. So let's begin.
 
 <!--more-->
 
-## **You can't solve Atomic Broadcast**
+##### You can't solve Atomic Broadcast
 
 From the article:
 
@@ -41,7 +42,7 @@ A solution to the atomic broadcast problem satisfies the stated safety and liven
 
 And because atomic broadcast and consensus are, from a certain perspective, [exactly the same problem](https://www.cs.utexas.edu/~lorenzo/corsi/cs380d/papers/p225-chandra.pdf) (Chandra and Toueg, again!) we can apply all the knowledge that's been accrued regarding consensus and apply it to atomic broadcast. Specifically that it's impossible to solve atomic broadcast in an asynchronous system where even one process may fail stop.
 
-## **Yes but what if...**
+##### Yes but what if...
 
 There are some real mitigations to the FLP impossibility result. Some are mentioned in the article. None completely undermine the basic impossibility result.
 
@@ -53,7 +54,7 @@ As for **failure detectors**, it's true that augmenting your system model with a
 
 I understand the tedium of pedantry regarding abstruse theoretical matters, but it's not productive to throw out precision in the same set of bath water.
 
-## **Tinkerbell consensus**
+##### Tinkerbell consensus
 
 The final set of claims from that initial section on impossibility is the toughest to support:
 
@@ -67,6 +68,6 @@ I don't believe that consensus can be solved. And yet, I use ZooKeeper daily. Th
 
 If Kafka purports to implement atomic broadcast, it too will fail to do so correctly in some execution. That's an important property of any implementation, and one that - ideally - you would want to acknowledge and document, without suggesting that the system will do anything other than work correctly in the vast majority of executions.
 
-## **Conclusion**
+##### Conclusion
 
 If I were to rewrite the article, I'd structure it thus: "exactly-once looks like atomic broadcast. Atomic broadcast is impossible. Here's how exactly-once might fail, and here's why we think you shouldn't be worried about it.". That's a harder argument for users to swallow, perhaps, but it would have the benefit of not causing my impossibility spider-sense to tingle.
