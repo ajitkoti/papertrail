@@ -4,7 +4,7 @@ date: 2018-06-08T16:22:58-07:00
 draft: false
 ---
 
-## 0. What is this document?
+##### 0. What is this document?
 
 No subject appears to be more controversial to distributed systems
 engineers than the oft-quoted, oft-misunderstood CAP theorem. The
@@ -17,7 +17,7 @@ completely thorough mistakes here. Corrections and comments are
 welcome: <a href="mailto:henry.robinson+cap@gmail.com">let me have
 them</a>.
 
-## 1. Where did the CAP Theorem come from?
+##### 1. Where did the CAP Theorem come from?
 
 Dr. Eric Brewer gave a keynote speech at the Principles of Distributed Computing
 conference in 2000 called '[Towards Robust Distributed
@@ -30,7 +30,7 @@ in distributed systems at MIT - formalised and proved the conjecture
 in their paper "[Brewer's conjecture and the feasibility of consistent,
 available, partition-tolerant web services](https://users.ece.cmu.edu/~adrian/731-sp04/readings/GL-cap.pdf)".
 
-## 2. What does the CAP Theorem actually say?
+##### 2. What does the CAP Theorem actually say?
 
 The CAP Theorem (henceforth 'CAP') says that it is impossible to build
 an implementation of read-write storage in an asynchronous network that
@@ -56,7 +56,7 @@ The devil is in the details however. Before you start crying 'yes, but
 what about...', make sure you understand the following about exactly
 what the CAP theorem does and does not allow.
 
-## 3. What is 'read-write storage'?
+##### 3. What is 'read-write storage'?
 
 CAP specifically concerns itself with a theoretical
 construct called a _register_. A register is a data structure with two
@@ -69,7 +69,7 @@ A key-value store can be modelled as a collection of registers. Even
 though registers appear very simple, they capture the essence of what
 many distributed systems want to do - write data and read it back.
 
-## 4. What does _atomic_ (or _linearizable_) mean?
+##### 4. What does _atomic_ (or _linearizable_) mean?
 
 Atomic, or linearizable, consistency is a guarantee about what values
 it's ok to return when a client performs `get()` operations. The idea is
@@ -117,7 +117,7 @@ happen before `A:set`.
 ) has more information. Maurice Herlihy's original paper
 from 1990 is available at [here](http://cs.brown.edu/~mph/HerlihyW90/p463-herlihy.pdf).
 
-## 5. What does _asynchronous_ mean?
+##### 5. What does _asynchronous_ mean?
 
 An _asynchronous_ network is one in which there is no bound on how
 long messages may take to be delivered by the network or processed by
@@ -125,7 +125,7 @@ a machine. The important consequence of this property is that there's
 no way to distinguish between a machine that has failed, and one whose
 messages are getting delayed.
 
-## 6. What does _available_ mean?
+##### 6. What does _available_ mean?
 
 A data store is available if and only if all get and set requests
 eventually return a response that's part of their specification. This
@@ -141,7 +141,7 @@ because 100% of the requests must return a response (there's no
 'degree of availability' here), but weak because the response can take
 an unbounded (but finite) amount of time.
 
-## 7. What is a _partition_?
+##### 7. What is a _partition_?
 
 A partition is when the network fails to deliver some messages to one
 or more nodes by losing them (not by delaying them - eventual delivery
@@ -157,7 +157,7 @@ these are arguably the most likely since all messages may flow through
 one component; if that fails then message loss is usually total
 between two nodes.
 
-## 8. Why is CAP true?
+##### 8. Why is CAP true?
 
 The basic idea is that if a client writes to one side of a partition,
 any reads that go to the other side of that partition can't possibly
@@ -172,7 +172,7 @@ gets some press is that this constructed scenario is not completely
 unrealistic. It is not uncommon for a total partition to occur if
 networking equipment should fail.
 
-## 9. When does a system have to give up C or A?
+##### 9. When does a system have to give up C or A?
 
 CAP only guarantees that there is _some_ circumstance in which a
 system must give up either C or A. Let's call that circumstance a
@@ -189,7 +189,7 @@ cautious: there's a good chance that you'll realistically hit one of
 these critical conditions, and it's prudent to understand how your
 system will fail to meet either C or A.
 
-## 10. Why do some people get annoyed when I characterise my system as CA?
+##### 10. Why do some people get annoyed when I characterise my system as CA?
 
 Brewer's keynote, the Gilbert paper, and many other treatments, places
 C, A and P on an equal footing as desirable properties of an
@@ -218,7 +218,7 @@ databases, for example. These systems aren't generally relevant to the
 contexts in which CAP is most useful. If you describe your distributed
 database as 'CA', you are misunderstanding something.
 
-## 11. What about when messages don't get lost?
+##### 11. What about when messages don't get lost?
 
 A perhaps surprising result from the Gilbert paper is that no
 implementation of an atomic register in an asynchronous network can be
@@ -230,7 +230,7 @@ therefore a node cannot wait indefinitely for a response while still
 maintaining availability, however if it responds too early it might be
 inconsistent.
 
-## 12. Is my network really asynchronous?
+##### 12. Is my network really asynchronous?
 
 Arguably, yes. Different networks have vastly differing characteristics.
 
@@ -251,7 +251,7 @@ partially-synchronous model; it is possible to implement atomic
 storage that is available all the time, and consistent when all
 messages are delivered.
 
-## 13. What, if any, is the relationship between FLP and CAP?
+##### 13. What, if any, is the relationship between FLP and CAP?
 
 The Fischer, Lynch and Patterson theorem ('FLP') (see [my blog post](https://the-paper-trail.org/blog/a-brief-tour-of-flp-impossibility/) for a link
 to the paper and a proof explanation) is an extraordinary
@@ -276,7 +276,7 @@ from CAP:
 
 For a bit more on this topic, consult one of my [follow-on blog post](https://the-paper-trail.org/blog/flp-and-cap-arent-the-same-thing/).
 
-## 14. Are C and A 'spectrums'?
+##### 14. Are C and A 'spectrums'?
 
 It is possible to relax both consistency and availability guarantees
 from the strong requirements that CAP imposes and get useful
@@ -294,7 +294,7 @@ Once you weaken any of the assumptions made in the statement or proof
 of CAP, you have to start again when it comes to proving an
 impossibility result.
 
-## 15. Is a failed machine the same as a partitioned one?
+##### 15. Is a failed machine the same as a partitioned one?
 
 No. A 'failed' machine is usually excused the burden of having to
 respond to client requests. CAP does not allow any machines to fail
@@ -307,7 +307,7 @@ failures. This result has ramifications about the tradeoff between how
 many nodes you write to (which is a performance concern) and how fault
 tolerant you are (which is a reliability concern).
 
-## 16. Is a slow machine the same as a partitioned one?
+##### 16. Is a slow machine the same as a partitioned one?
 
 No: messages eventually get delivered to a slow machine, but they
 never get delivered to a totally partitioned one. However, slow
@@ -316,7 +316,7 @@ between lost messages (or failed machines) and a slow machine. This
 difficulty is right at the heart of why CAP, FLP and other results are
 true.
 
-## 17. Have I 'got around' or 'beaten' the CAP theorem?
+##### 17. Have I 'got around' or 'beaten' the CAP theorem?
 
 No. You might have designed a system that is not heavily affected by
 it. That's good.
