@@ -12,6 +12,7 @@ categories:
 ### Cache Craftiness for Fast Multicore Key-Value Storage
 
 _Mao et. al., EuroSys 2012_
+\[[paper](https://pdos.csail.mit.edu/papers/masstree:eurosys12.pdf), [code](https://github.com/kohler/masstree-beta)\]
 
 ##### The Big Idea
 
@@ -100,9 +101,80 @@ the last constant number of layers will have entries proportional to the number 
 database, when the strings have divergent suffixes. In this case, the cost of searching a masstree
 drops to \\(O(l + log(N))\\) (but a straight B+-tree will still have \\(O(l.log(N))\\) cost).
 
-##### What about the so-called 'cache craftiness'?
+##### Implementation details
+
+A masstree is implemented almost like a regular B+-tree. The differences are that the subset of the
+key to be compared changes as you go down the tree, and that leaf nodes may contain either pointers
+to _values_ (as is traditional in a B+-tree), or to _the next layer_.
+
+Border nodes (i.e. leaves that may point to other B+-trees) have sibling links to support efficient
+range queries.
+
+Much of the interesting implementation detail is around concurrency control (see sections 4.4, 4.5
+and 4.6). Masstree is designed to support high-throughput concurrent access without sharding. Some
+notes from their approach:
+
+### Concurrency
+
+* Readers never lose updates: will always see a real recent value and not time-travel.
+* Writers lock each other out, because the cost of an uncontended lock is roughly the same as a
+  compare-and-swap, and locks are only held for a short time (because presumably all nodes are in
+  memory).
+* Readers are always optimistic, and may retry if they read a node that is being modified.
+* There is a concurrent `delete` implementation (which many B+-trees lack).
+
+### Permutations
+
+* In border nodes, keys are stored out-of-order in an array, and a separate `permutation` array is
+  maintained to track the mapping from `keys[i]` to the `i^th` key's position in the sorted keys
+  array.
+* The permutation fits inside a 64-bit integer, and so can be written atomically. This means that
+  inserting a key into the middle of the existing keys in sorted order can be done by a) adding the
+  key to the end of the unsorted array b) rewriting the permutation locally and then c) publishing
+  the permutation by writing it back, so that other readers and writers can see it.
+* During the above process, no invalid intermediate state can be observed; writing the permutation
+  is an atomic linearization point (not an 'unholy mess' :)).
+
+### What about the so-called 'cache craftiness'?
+
+> First, Masstree must efficiently support many key distributions, including variable-length binary
+> keys where many keys might have long common prefixes. Second, for high performance and
+> scalability, Masstree must allow fine-grained concurrent access, and its get operations must
+> never dirty shared cache lines by writing shared data structures. Third, Masstree’s layout must
+> support prefetching and collocate important in- formation on small numbers of cache lines. The
+> second and third properties together constitute cache craftiness.
+
+* Fixed-size key comparisons can be done with SIMD (not mentioned by paper, maybe not a win)
+* Border nodes are 256-bytes, so fit in four cache lines (much of that is key / value data).
+* Linear search through the set of keys therefore exhibits good cache locality.
+* Prefetching an entire node overlaps search computation with memory delays and helps with
+  throughput.
+* Get operations indeed do not dirty any shared state.
+
+##### Evaluation
+
+Most interesting is the factor analysis that shows what happens if you compare Masstree to a system
+where one of the requirements is relaxed. Doing so shows the cost of implementing that requirement
+in masstree:
+
+* Compared to a B+-tree supporting only fixed-size keys, masstrees are about 1% slower
+* Keys with common prefixes maintain high throughput even though masstrees may become
+  'superficially' imbalanced.
+* Range queries appear to be inherently expensive - masstrees are 2.5x slower than a straight hash
+  table.
+
+> "Masstree's performance is dominated by the latency of fetching tree nodes from DRAM"
+
+More nodes are fetched for a masstree than a B+-tree, but each B+-tree node is fatter due to the
+larger keys, so it may be a wash.
 
 ##### Comments
 
 * In-memory only - the increased depth of the tree presumably mitigates a lot of the benefits of a
   masstree since the stall time for a fetch is so much higher.
+* It seems quite hard to fill up a masstree - you would need to have strings that diverge from each
+  other at every 'slice'. I wonder if in practice there are usually some layers that are fairly
+  empty and therefore the search cost is better than the upper bound in many cases.
+* Interior and border nodes have different sizes, so why the same fanout?
+* How much worse (or better?) is this than a B+-tree when the dataset exceeds main memory capacity?
+  More expensive fetches (and more of them) should make masstrees slower.
