@@ -16,7 +16,8 @@ draft: false
 
 ## Key-value storage engines
 
-* _[Cache Craftiness for Fast Multicore Key-Value Storage](https://pdos.csail.mit.edu/papers/masstree:eurosys12.pdf)_ - Mao et. al., EuroSys 2012
+* \[**[paper notes](/post/masstree-paper-notes)**\] ~~_[Cache Craftiness for Fast Multicore Key-Value Storage](https://pdos.csail.mit.edu/papers/masstree:eurosys12.pdf)_ - Mao et. al., EuroSys 2012~~
+
 
 * _[MICA: A Holistic Approach to Fast In-Memory Key-Value Storage](https://www.usenix.org/system/files/conference/nsdi14/nsdi14-paper-lim.pdf)_ - Lim et. al., NSDI 2014
 
