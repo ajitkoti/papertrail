@@ -7,6 +7,7 @@ draft: false
 layout: post
 categories:
     - Paper notes
+    - Key-value stores
 ---
 
 ### Cache Craftiness for Fast Multicore Key-Value Storage
@@ -50,7 +51,7 @@ tradeoff based on the large cardinality of the slice 'alphabet'. Enter the **_Ma
 
 Splitting keys into fixed length strings means that you can view a string as a concatenation of
 'letters` drawn from a very large alphabet (of 8-byte strings). A natural search structure for
-variable-length strings over a fixed alphabet is a _trie_. The problem is that a trie formed by
+variable-length strings over a fixed alphabet is a _[trie](https://en.wikipedia.org/wiki/Trie)_. The problem is that a trie formed by
 splitting up strings into their natural one-character alphabet would be too deep when you've got
 lots of long keys (a trie is linear in the size of the key). Even if we reduced the string length by
 a constant factor by splitting the string into larger slices, the trie becomes very hard to
