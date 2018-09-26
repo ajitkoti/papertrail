@@ -14,6 +14,8 @@ draft: false
 
 * _[Service Fabric: A Distributed Platform for Building Microservices in the Cloud](https://dl.acm.org/citation.cfm?id=3190546)_ - Kakivaya et. al., EuroSys 2018
 
+* _[Gray Failure: The Achilles’ Heel of Cloud-Scale Systems](https://www.microsoft.com/en-us/research/wp-content/uploads/2017/06/paper-1.pdf)_ - Huang et. al., HotOS 2017
+
 ## Key-value storage engines
 
 * \[**[paper notes](/post/masstree-paper-notes)**\] ~~_[Cache Craftiness for Fast Multicore Key-Value Storage](https://pdos.csail.mit.edu/papers/masstree:eurosys12.pdf)_ - Mao et. al., EuroSys 2012~~
