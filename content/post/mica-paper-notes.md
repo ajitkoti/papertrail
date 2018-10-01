@@ -3,17 +3,14 @@ title: "Paper Notes: MICA: A Holistic Approach to Fast In-Memory Key-Value Stora
 date: 2018-09-26T12:52:31-07:00
 author: Henry
 permalink: /paper-notes-mica/
-draft: false
+draft: true
 layout: post
 categories:
     - Paper notes
     - Key-value stores
 ---
 
-<div class="alert alert-warning">
-  This paper summary is part of a series on <strong>key-value stores</strong>. See the <a
-  href="/key-value-stores/">index</a> for more articles.
-</div>
+{{< key_value_series >}}
 
 ### MICA: A Holistic Approach to Fast In-Memory Key-Value Storage
 
