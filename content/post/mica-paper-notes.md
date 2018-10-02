@@ -1,5 +1,5 @@
 ---
-title: "Paper Notes: MICA: A Holistic Approach to Fast In-Memory Key-Value Storage"
+title: "Paper Notes: Outperforming in-memory hash-tables with MICA"
 date: 2018-09-26T12:52:31-07:00
 author: Henry
 permalink: /paper-notes-mica/
@@ -18,9 +18,11 @@ _Lim et. al., NSDI 2014_
 \[[paper](https://pdos.csail.mit.edu/papers/masstree:eurosys12.pdf), [code](https://github.com/kohler/masstree-beta)\]
 
 In this installment we're going to look at a system from NSDI 2014. MICA is another in-memory
-key-value store, but in contrast to Masstree it does not support range queries. Indeed, the closest
-comparison system that you might think of when reading about MICA is a humble... hash table. Is
-there still room for improvement over such a fundamental data structure? Read on and find out.
+key-value store, but in contrast to Masstree it does not support range queries and in much of the
+paper it keeps a fixed working set by evicting old items, like a cache. Indeed, the closest
+comparison system that you might think of when reading about MICA for the first time is a
+humble... hash table. Is there still room for improvement over such a fundamental data structure?
+Read on and find out.
 
 <!--more-->
 
@@ -66,16 +68,46 @@ operation'.
 
 ##### Operating modes
 
+MICA has two different storage semantics that it implements:
+
+* *Cache* mode has MICA behaving like a traditional in-memory cache, a la Memcache. A fixed amount
+  of memory is used, and when more is needed, some old or less frequently used item is evicted to
+  make room.
+* *Store* mode is when MICA keeps all `(key, value)` pairs in memory, growing the memory required to
+  store them as required.
+
+Roughly speaking, both cache and store modes have similar network stacks and data structure design,
+but the actual data structures used are a bit different to each other.
+
+To complicate things further, each mode can operate in one of two 'operating modes' which describe
+how much coordination can be performed between cores. One of MICA's design principles is to
+statically hash-partition keys between cores so that separate requests for keys in different partitions
+can be served in parallel with no locks or waiting. However, if one core is not enough to serve the
+load for its partition, MICA could end up bottlenecked on single-core throughput and may decide to
+serve read requests for a partition from _other_ cores than the one that 'owns' the partition. MICA
+can be configured to use two different strategies:
+
+* _Exclusive-Read-Exclusive-Write (EREW)_ mode only allows the owning core to serve requests for its
+  partition.
+* _Concurrent-Read-Exclusive-Write (CREW)_ mode allows other cores to serve `get` requests, but all
+  updates are done by a single core.
+
+To keep this write-up a manageable length, we mostly focus on MICA in *EREW* mode, implementing
+*cache* semantics, as this is the mode the paper devotes the most space to. There are lots of
+interesting details about the other three combinations, so go read the paper for the most detail.
+
 ##### Data structures, logs and hash tables
 
 MICA identifies two main areas for improvement over traditional data structures like hash
-tables.
+tables. These improvements lead the authors to split their data structures into two parts: the first
+to _store_ the data in a memory-allocator-friendly fashion, and the second to _index_ it
+efficiently.
 
 #### Append-only in-memory storage
 
-The first is that **memory allocation** can be a problem for systems that have lots of
-relatively small writes. Dynamically allocating memory to data items as requests arrive can lead to
-fragmentation, affecting memory usage efficiency.
+The first observation made by the authors is that **memory allocation** can be a problem for systems
+that have lots of relatively small writes. Dynamically allocating memory to data items as requests
+arrive can lead to fragmentation, affecting memory usage efficiency.
 
 MICA addresses this by doing something pretty sensible: it writes all keys and values in succession
 to an **append-only log data structure**. You can think of this like a book where you just write
@@ -166,13 +198,14 @@ data structure its 'lossy' name.
 
 ##### Parallelism: partitioning vs coordination
 
-One of the major design decisions in MICA is to achieve parallelism by partitionining work across
-multiple cores. Each core maintains its own private data structures and doesn't need to read or
-write any other cores' data. If done correctly, this can be an embarassingly parallel implementation
-with little or no coordination required between cores, but the potential downside is that, since
-each operation can only be processed by one core, any imbalance in workload will lead to imbalanced
-core utilization and poor efficiency. The opposite philosophy is to allow any core to service any
-request and to embrace the coordination that this requires; Masstree took this approach.
+One of the major design decisions in MICA is to achieve parallelism by partitioning work across
+multiple cores by partitioning the keyspace across cores using hash-partitioning. Each core
+maintains its own private data structures and doesn't need to read or write any other cores'
+data. If done correctly, this can be an embarassingly parallel implementation with little or no
+coordination required between cores, but the potential downside is that, since each operation can
+only be processed by one core, any imbalance in workload will lead to imbalanced core utilization
+and poor efficiency. The opposite philosophy is to allow any core to service any request and to
+embrace the coordination that this requires; Masstree took this approach.
 
 Workload skew is pretty much an accepted fact of life, so how does MICA justify or mitigate the
 per-core imbalance that results? The answer is in section 4.1.1. Firstly keys are _hashed_ to map
@@ -207,8 +240,34 @@ load. Assuming that the cores were being 100% used, this points to the benefits 
 when serving skewed workloads. The aggregate throughput across all cores, however, is lower for the
 skewed workload.
 
-##### Partitioning without coordination
+##### Partitioning without any coordination
 
-It's all well and good to have data structures that don't need coordination, but you need a way
+It's all well and good to have data structures that don't need coordination, but you need a way to
+_get_ work to those data structures, and their owning cores, in the first place without incurring
+heavy coordination overhead. This is easier said than done - think about how you might implement
+this naively. When a request comes in, some part of the system has to decide what core it goes on
+(computes the hash value), and then it has to deliver it to that core by writing to some queue. The
+problem is that the core that computes the hash value is unlikely to be the one that should process
+the request - there's no way of knowing which core should process a request until the key is
+hashed - so it's also possible that many threads at once could try to write to the core's inbound
+request queue. This requires coordination. Coordination kills parallelism.
+
+MICA uses a cool strategy to try to work around this. Because MICA is designed _holistically_, the
+authors very legitimately consider the client to be part of the system. And clients operate in
+parallel - so why not have them compute the hash value and then 'send' the request to the right
+core?
+
+Since a client can know the number of MICA partitions \\(N\\) running on the server - it's easy to
+do this when it connects, the number of partitions is going to be fixed and unchanging - it knows
+the right range \\([0..N]\\) for the hash value to take. So that part's easy. The tricky part is
+addressing cores on a remote machine somehow.
+
+The way this is done is to assign a UDP port to each core. The client can map a hash value to a
+port, and then packets sent to that port are delivered directly to that core, with next-to-no
+coordination required on the client _or_ the server!
+
+Each core has its own receive queue, managed for it by [DPDK](https://www.dpdk.org/) and accessible
+to user-space logic (i.e. MICA). As discussed earlier, each queue can deliver packets to each core
+efficiently by taking advantage of bulk delivery during times of high load.
 
 ##### How is this better than a hash table?
