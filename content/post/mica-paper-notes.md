@@ -3,14 +3,14 @@ title: "Paper Notes: Outperforming in-memory hash-tables with MICA"
 date: 2018-09-26T12:52:31-07:00
 author: Henry
 permalink: /paper-notes-mica/
-draft: true
+draft: false
 layout: post
 categories:
     - Paper notes
     - Key-value stores
 ---
 
-{{< key_value_series >}}
+<!-- {{< key_value_series >}} -->
 
 ### MICA: A Holistic Approach to Fast In-Memory Key-Value Storage
 
