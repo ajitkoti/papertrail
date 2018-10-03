@@ -15,14 +15,14 @@ categories:
 ### MICA: A Holistic Approach to Fast In-Memory Key-Value Storage
 
 _Lim et. al., NSDI 2014_
-\[[paper](https://pdos.csail.mit.edu/papers/masstree:eurosys12.pdf), [code](https://github.com/kohler/masstree-beta)\]
+\[[paper](https://www.usenix.org/system/files/conference/nsdi14/nsdi14-paper-lim.pdf)]
 
-In this installment we're going to look at a system from NSDI 2014. MICA is another in-memory
+In this installment we're going to look at a system from NSDI 2014. **MICA** is another in-memory
 key-value store, but in contrast to Masstree it does not support range queries and in much of the
 paper it keeps a fixed working set by evicting old items, like a cache. Indeed, the closest
 comparison system that you might think of when reading about MICA for the first time is a
 humble... hash table. Is there still room for improvement over such a fundamental data structure?
-Read on and find out.
+Read on and find out (including benchmarks!).
 
 <!--more-->
 
@@ -271,3 +271,50 @@ to user-space logic (i.e. MICA). As discussed earlier, each queue can deliver pa
 efficiently by taking advantage of bulk delivery during times of high load.
 
 ##### How is this better than a hash table?
+
+MICA's evaluation shows, as you would expect, that it outperforms other systems for common
+workloads. The other systems include Memcache, Masstree, RAMCloud and MemC3.
+
+I was interested in how MICA compared to more traditional data structure implementations, so I wrote
+a simple implementation of the data structures underpinning MICA's EREW + cache mode, with both a
+circular log for storage and a lossy hash table for indexing. I called this implementation
+`Formica`, as it feels kind of cheap :)
+
+I'm going to make Formica public as soon as I've cleaned it up, so watch this space.
+
+I also wrote two comparison implementations:
+
+* `std::map` uses a... `std::map` as a non-lossy index into a Formica's circular log.
+* `Chained Lossy Hash` is a chained hash table that stores the data directly in the chain nodes. It
+  is lossy because the chain lengths are fixed, and when a node needs to be evicted, the end of the
+  chain is removed (new entries are inserted at the front).
+
+  {{< figure src="/formica_small_keys_benchmark.png" caption="Throughput for MICA's small-key test" >}}
+
+We can see that Formica achieves better throughput than either of the other indexes. This benchmark
+only runs on a single core (on my 2013 Macbook Pro). That's because I only want to test the
+effectiveness of MICA's new data structures, not the virtues of their partition-not-coordinate
+design principle (note all three of the implementations are coordination-free, so we have to
+parallelise by keeping a private copy of each data structure per-thread). Therefore there's also no
+skew in the workload, which was about 10 million operations on a pre-loaded data set of 2 million
+strings.
+
+`PUT` operations are cheaper than `GET`s (and this continues if the mix of `PUT`s is turned up even
+higher), presumably because there aren't as many, if any, full-key comparisons on the write path.
+
+The data structures were sized to keep cache misses due to eviction to around 0-5%. The circular
+log, where used, was large enough to hold almost all the written keys and values but it was much
+harder to size the hash tables correctly. For Formica, each bucket in the table had about 25
+entries, which means that to store 2M keys would need about 84k buckets. You should take these
+benchmark results with a huge grain of salt since I didn't have time to really dig into every
+observation to make sure I understood it, but I believe that the general trend is accurate.
+
+And that general trend is that... Formica (and thus MICA) is a superior design for single-core
+throughput for a key-value in-memory cache. It's particularly interesting that the fixed-size bucket
+hash table beats out the chained version quite handily. The chained version doesn't do any memory
+allocation after the chains get full, so the cost is likely to be doing the dependent reads walking
+the linked list during `GET`s. Indeed, when the mix of `GET`s is reduced to about 5%, the
+performance of the chained hash table increases significantly.
+
+So data structure choices _do_ continue to matter. Don't forget that anytime anyone asks you what
+the point is in learning how to walk a binary tree.
