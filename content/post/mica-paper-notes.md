@@ -278,7 +278,7 @@ workloads. The other systems include Memcache, Masstree, RAMCloud and MemC3.
 I was interested in how MICA compared to more traditional data structure implementations, so I wrote
 a simple implementation of the data structures underpinning MICA's EREW + cache mode, with both a
 circular log for storage and a lossy hash table for indexing. I called this implementation
-`Formica`, as it feels kind of cheap :)
+[Formica](https://en.wikipedia.org/wiki/Formica_(plastic)), as it feels kind of cheap :)
 
 I'm going to make Formica public as soon as I've cleaned it up, so watch this space.
 
@@ -289,7 +289,8 @@ I also wrote two comparison implementations:
   is lossy because the chain lengths are fixed, and when a node needs to be evicted, the end of the
   chain is removed (new entries are inserted at the front).
 
-  {{< figure src="/formica_small_keys_benchmark.png" caption="Throughput for MICA's small-key test" >}}
+  {{< figure src="/formica_benchmark_workload.png" caption="Throughput for MICA's small-key test" >}}
+  {{< figure src="/formica_benchmark_key_sizes.png" caption="Throughput for various key sizes" >}}
 
 We can see that Formica achieves better throughput than either of the other indexes. This benchmark
 only runs on a single core (on my 2013 Macbook Pro). That's because I only want to test the
