@@ -15,7 +15,7 @@ categories:
 ### MICA: A Holistic Approach to Fast In-Memory Key-Value Storage
 
 _Lim et. al., NSDI 2014_
-\[[paper](https://www.usenix.org/system/files/conference/nsdi14/nsdi14-paper-lim.pdf)]
+\[[paper](https://www.usenix.org/system/files/conference/nsdi14/nsdi14-paper-lim.pdf), [code](https://github.com/efficient/mica)]
 
 In this installment we're going to look at a system from NSDI 2014. **MICA** is another in-memory
 key-value store, but in contrast to Masstree it does not support range queries and in much of the
