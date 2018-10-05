@@ -32,9 +32,9 @@ MICA is another key-value store, one that starts from a different set of assumpt
 example, Masstree, and as a result ends up at a rather different point in the design space. The
 target environment is pretty similar: MICA is designed to take advantage of multi-core CPUs, and all
 keys and values are stored in memory. Storage is limited to a single node - there's no replication
-or partitioning (although those could probably be added without changing much of MICA as presented
-here). The data stored are string `(key, value)` pairs. But beyond those initial similarities, there
-are some important differences:
+or partitioning by distribution (although those could probably be added without changing much of
+MICA as presented here). The data stored are string `(key, value)` pairs. But beyond those initial
+similarities, there are some important differences:
 
 **No range queries**: MICA supports `get(key)`, `put(key, value)` and `delete(key)` operations, but
 does not support `getRange(low_key, high_key)`. This is a critical difference: if you don't have to
@@ -51,7 +51,8 @@ usage.
 
 **Keys and values are short**: Masstree focused on long keys and values with potentially a high
 degree of prefix overlap. MICA instead assumes that keys and values are relatively short - short
-enough to fit into a UDP packet, so about 64k in total. Shorter keys and values present their own
+enough to fit into a UDP packet, so about 64k in total (and in fact the evaluation is performed with
+a total string length no longer than 1132 bytes). Shorter keys and values present their own
 difficulties: comparison costs are lower so perhaps not so important to focus on, but they also
 require small memory allocations which can lead to more fragmentation and higher overhead (e.g. the
 fixed cost of tracking an allocation becomes more significant with higher allocation volume).
@@ -280,14 +281,17 @@ a simple implementation of the data structures underpinning MICA's EREW + cache 
 circular log for storage and a lossy hash table for indexing. I called this implementation
 [Formica](https://en.wikipedia.org/wiki/Formica_(plastic)), as it feels kind of cheap :)
 
-I'm going to make Formica public as soon as I've cleaned it up, so watch this space.
+Formica is [available on
+Github](https://github.com/henryr/key-value-datastructures/tree/master/formica). It might be
+interesting to look at to help with the paper, but don't even think about using it as the basis for
+anything important!
 
-I also wrote two comparison implementations:
+Formica also contains two other in-memory key-value stores for comparison:
 
-* `std::map` uses a... `std::map` as a non-lossy index into a Formica's circular log.
-* `Chained Lossy Hash` is a chained hash table that stores the data directly in the chain nodes. It
-  is lossy because the chain lengths are fixed, and when a node needs to be evicted, the end of the
-  chain is removed (new entries are inserted at the front).
+* `StdMapStore` uses a... `std::map` as a non-lossy index into a Formica's circular log.
+* `ChainedLossyHashStore` is a chained hash table that stores the data directly in the chain
+  nodes. It is lossy because the chain lengths are fixed, and when a node needs to be evicted, the
+  end of the chain is removed (new entries are inserted at the front).
 
   {{< figure src="/formica_benchmark_workload.png" caption="Throughput for MICA's small-key test" >}}
   {{< figure src="/formica_benchmark_key_sizes.png" caption="Throughput for various key sizes" >}}
