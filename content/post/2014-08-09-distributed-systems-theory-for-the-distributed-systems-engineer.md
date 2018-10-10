@@ -8,6 +8,7 @@ guid: https://the-paper-trail.org/blog/?p=617
 permalink: /distributed-systems-theory-for-the-distributed-systems-engineer/
 aliases:
  - /blog/distributed-systems-theory-for-the-distributed-systems-engineer/
+ - /dist-sys-theory
 categories:
 - Distributed systems
 
