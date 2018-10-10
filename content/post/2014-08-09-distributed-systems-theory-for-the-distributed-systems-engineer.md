@@ -5,10 +5,10 @@ date: 2014-08-09T20:45:38+00:00
 author: Henry
 layout: post
 guid: https://the-paper-trail.org/blog/?p=617
-permalink: /distributed-systems-theory-for-the-distributed-systems-engineer/
+permalink: /dist-sys-theory/
 aliases:
  - /blog/distributed-systems-theory-for-the-distributed-systems-engineer/
- - /dist-sys-theory
+ - /distributed-systems-theory-for-the-distributed-systems-engineer/
 categories:
 - Distributed systems
 
