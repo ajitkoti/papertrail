@@ -2,6 +2,8 @@
 title: "Reading List"
 date: 2018-06-07T14:49:07-07:00
 draft: false
+aliases:
+  - /reading-list/
 ---
 
 ## Misc.
@@ -32,6 +34,7 @@ draft: false
 * _[The Bw-tree: A B-tree for New Hardware Platforms](https://15721.courses.cs.cmu.edu/spring2017/papers/08-oltpindexes2/bwtree-icde2013.pdf)_ - Levandoski et. al., ICDE 2013
 
 * _[Building a Bw-Tree Takes More Than Just Buzzwords](https://db.cs.cmu.edu/papers/2018/mod342-wangA.pdf)_ - Wang et. al., SIGMOD 2018
+    * Related: _[The ART of Practical Synchronization](https://db.in.tum.de/~leis/papers/artsync.pdf)_ - Leis et. al., DaMoN 2016
 
 * _[HyperDex: a distributed, searchable key-value store](https://conferences.sigcomm.org/sigcomm/2012/paper/sigcomm/p25.pdf)_ - Escriva et. al., SIGCOMM 2012
 
