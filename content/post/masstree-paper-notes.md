@@ -8,6 +8,8 @@ layout: post
 categories:
     - Paper notes
     - Key-value stores
+aliases:
+    - /post/masstree/
 ---
 
 ### Cache Craftiness for Fast Multicore Key-Value Storage
