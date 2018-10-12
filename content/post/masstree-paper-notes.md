@@ -1,5 +1,5 @@
 ---
-title: "Paper Notes: Cache Craftiness for Fast Multicore Key-Value Storage"
+title: "Masstree: A cache-friendly mashup of tries and B-trees"
 date: 2018-09-10T12:13:31-07:00
 author: Henry
 permalink: /paper-notes-masstree/

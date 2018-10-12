@@ -1,5 +1,5 @@
 ---
-title: "Paper Notes: Outperforming in-memory hash-tables with MICA"
+title: "Outperforming in-memory hash-tables with MICA"
 date: 2018-09-26T12:52:31-07:00
 author: Henry
 permalink: /paper-notes-mica/
