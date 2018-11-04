@@ -10,7 +10,7 @@ categories:
     - Key-value stores
 ---
 
-<!-- {{< key_value_series >}} -->
+{{< key_value_series >}}
 
 ### MICA: A Holistic Approach to Fast In-Memory Key-Value Storage
 

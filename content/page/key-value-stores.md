@@ -1,5 +1,5 @@
 ---
-title: "Key-value store research"
+title: "Key-value stores"
 date: 2018-06-07T14:49:07-07:00
 draft: true
 aliases:
