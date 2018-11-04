@@ -36,20 +36,26 @@ or partitioning by distribution (although those could probably be added without 
 MICA as presented here). The data stored are string `(key, value)` pairs. But beyond those initial
 similarities, there are some important differences:
 
-**No range queries**: MICA supports `get(key)`, `put(key, value)` and `delete(key)` operations, but
-does not support `getRange(low_key, high_key)`. This is a critical difference: if you don't have to
-service range queries you don't have to index any information about the _relative_ values of keys,
-and therefore you don't have to perform many comparisons on the read or write paths. In Masstree we
-saw that a lot of effort went into optimizing comparisons by keeping them constant-cost. That
-shouldn't be a focus for a system like MICA.
+#### No range queries
 
-**Emphasis on cache semantics**: MICA supports four operating modes (more on that later). The
+MICA supports `get(key)`, `put(key, value)` and `delete(key)` operations, but does not support
+`getRange(low_key, high_key)`. This is a critical difference: if you don't have to service range
+queries you don't have to index any information about the _relative_ values of keys, and therefore
+you don't have to perform many comparisons on the read or write paths. In Masstree we saw that a lot
+of effort went into optimizing comparisons by keeping them constant-cost. That shouldn't be a focus
+for a system like MICA.
+
+#### Emphasis on cache semantics
+
+MICA supports four operating modes (more on that later). The
 largest focus in the paper is on _cache_ semantics, rather than _store_ semantics, although
 implementations for both are provided. Cache semantics are easier to support than store semantics,
 because MICA can choose what data to retain in order to preserve performance and manage memory
 usage.
 
-**Keys and values are short**: Masstree focused on long keys and values with potentially a high
+#### Keys and values are short
+
+Masstree focused on long keys and values with potentially a high
 degree of prefix overlap. MICA instead assumes that keys and values are relatively short - short
 enough to fit into a UDP packet, so about 64k in total (and in fact the evaluation is performed with
 a total string length no longer than 1132 bytes). Shorter keys and values present their own

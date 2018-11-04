@@ -18,12 +18,14 @@ aliases:
 
 * _[Gray Failure: The Achilles’ Heel of Cloud-Scale Systems](https://www.microsoft.com/en-us/research/wp-content/uploads/2017/06/paper-1.pdf)_ - Huang et. al., HotOS 2017
 
+* _[Everything You Always Wanted to Know About Compiled and Vectorized Queries, But Were Afraid to Ask](http://www.vldb.org/pvldb/vol11/p2209-kersten.pdf)_ - Kersten et. al., PVLDB 2018
+
 ## Key-value storage engines
 
-* \[**[paper notes](/post/masstree-paper-notes)**\] ~~_[Cache Craftiness for Fast Multicore Key-Value Storage](https://pdos.csail.mit.edu/papers/masstree:eurosys12.pdf)_ - Mao et. al., EuroSys 2012~~
+* \[**[notes](/post/masstree-paper-notes)**\] ~~_[Cache Craftiness for Fast Multicore Key-Value Storage](https://pdos.csail.mit.edu/papers/masstree:eurosys12.pdf)_ - Mao et. al., EuroSys 2012~~
 
 
-* \[**[paper notes](/post/mica-paper-notes)**\] ~~_[MICA: A Holistic Approach to Fast In-Memory Key-Value Storage](https://www.usenix.org/system/files/conference/nsdi14/nsdi14-paper-lim.pdf)_ - Lim et. al., NSDI 2014~~
+* \[**[notes](/post/mica-paper-notes)**\] ~~_[MICA: A Holistic Approach to Fast In-Memory Key-Value Storage](https://www.usenix.org/system/files/conference/nsdi14/nsdi14-paper-lim.pdf)_ - Lim et. al., NSDI 2014~~
 
 * _[SILT: A Memory-Efficient, High-Performance Key-Value Store](https://www.cs.cmu.edu/~dga/papers/silt-sosp2011.pdf)_ - Lim et. al., SOSP 2011
 
