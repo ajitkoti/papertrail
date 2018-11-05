@@ -85,4 +85,80 @@ memory benefit.
 
 The most significant change that ART makes to the standard trie structure is that it introduces the
 ability to change the datastructure used for each internal node depending on how many children the
-node actually has, rather than how many it might have. This is the 'small datastructures'.
+node actually has, rather than how many it might have.
+
+The paper distinguishes four different cases, for nodes with up to 4, 16, 48 and 256 children
+respectively. Let's take a look:
+
+#### `Node4`
+
+For nodes with up to four children, ART stores all the keys in a list, and the child pointers in a
+parallel list. Looking up the next character in a string means searching the list of child keys, and
+then using the index to look up the corresponding pointer. Although this is superficially a less
+efficient lookup algorithm, the small size of the child keys arrays means that the constant factor
+will dominate.
+
+{{< highlight "C++" "style=dracula" >}}
+    struct Node4 {
+        Value* value;
+        char child_keys[4];
+        Node* child_pointers[4];
+        byte num_children;
+    }
+
+    Node* find_child(char c, Node4* node) {
+        for (int i = 0; i < node->num_children; ++i) {
+            if (child_keys[i] == c) return child_pointers[i];
+        }
+
+        return NULL;
+    }
+{{< / highlight >}}
+
+Pointers are assumed to be 8 bytes, so a single `Node4` is 45 bytes, so sits in a single cache
+line. The search loop can also be unrolled, but the branch in each loop iteration can't be obviously
+elided and is not easily predicted. Still, the locality benefits make this a very efficient
+structure for very sparsely populated trie nodes.
+
+#### `Node16`
+
+Nodes with from 5 to 16 children have an identical layout to `Node4`, just with 16 children per node:
+
+{{< highlight "C++" "style=dracula" >}}
+    struct Node16 {
+        Value* value;
+        char child_keys[16];
+        Node* child_pointers[16];
+        byte num_children;
+    }
+{{< / highlight >}}
+
+Keys in a `Node16` are stored sorted, so binary search could be used to find a particular key. Since
+there are only 16 of them, it's also possible to search all the keys in parallel using SIMD. What
+follows is an annotated version of the algorithm presented in the paper's Fig 8.
+
+{{< highlight "C++" "style=dracula" >}}
+    // Find the child in `node` that matches `c` by examining all child nodes, in parallel.
+    Node* find_child(char c, Node16* node) {
+        // key_vec is 16 repeated copies of the searched-for byte
+        __mm128i key_vec = _mm_set1_epi8(c);
+
+        // compare all keys to 'c' in parallel
+        __mm128i results = _mm_cmpeq_epi8(key_vec, node->child_keys);
+
+        // Build a mask to select only the first node->num_children values from the comparison
+        // (because the other values are meaningless)
+        int mask = (1 << node->num_children) - 1;
+
+        // Change the results of the comparison into a bitfield, masking off any invalid comparisons.
+        int bitfield = _mm_movemask_epi8(results) & mask;
+
+        // No match if there are no '1's in the bitfield.
+        if (bitfield == 0) return NULL;
+
+        // Find the index of the first '1' in the bitfield by counting the leading zeros.
+        int idx = ctz(bitfield);
+
+        return node->child_pointers[idx];
+    }
+{{< / highlight >}}
