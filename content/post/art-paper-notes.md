@@ -85,10 +85,23 @@ memory benefit.
 
 The most significant change that ART makes to the standard trie structure is that it introduces the
 ability to change the datastructure used for each internal node depending on how many children the
-node actually has, rather than how many it might have.
+node actually has, rather than how many it might have. As the number of children in a node changes,
+ART swaps out one implementation of the node structure for another.
 
 The paper distinguishes four different cases, for nodes with up to 4, 16, 48 and 256 children
-respectively. Let's take a look:
+respectively. Assume we have a union type like the following:
+
+{{< highlight "C++" "style=dracula" >}}
+    union Node {
+        Node4;
+        Node16;
+        Node48;
+        Node256;
+    }
+{{< / highlight >}}
+
+This allows us to talk about all the different types of `Node`, and pointers to them, in the
+following without trying to make them all inherit from a base class.
 
 #### `Node4`
 
@@ -140,10 +153,12 @@ follows is an annotated version of the algorithm presented in the paper's Fig 8.
 {{< highlight "C++" "style=dracula" >}}
     // Find the child in `node` that matches `c` by examining all child nodes, in parallel.
     Node* find_child(char c, Node16* node) {
-        // key_vec is 16 repeated copies of the searched-for byte
+        // key_vec is 16 repeated copies of the searched-for byte, one for every possible position
+        // in child_keys that needs to be searched.
         __mm128i key_vec = _mm_set1_epi8(c);
 
-        // compare all keys to 'c' in parallel
+        // Compare all child_keys to 'c' in parallel. Don't worry if some of the keys aren't valid,
+        // we'll mask the results to only consider the valid ones below.
         __mm128i results = _mm_cmpeq_epi8(key_vec, node->child_keys);
 
         // Build a mask to select only the first node->num_children values from the comparison
@@ -162,3 +177,84 @@ follows is an annotated version of the algorithm presented in the paper's Fig 8.
         return node->child_pointers[idx];
     }
 {{< / highlight >}}
+
+This is superior to binary-search: no branches (except for the test when bitfield is 0), and all the
+comparisons are done in parallel. The `Node16` takes up 150 bytes, but the `child_keys` field is
+only 16 bytes.
+
+#### `Node48`
+
+The next node can hold up to four times as many keys as a `Node16`. As the paper says, when there
+are more than 16 children, searching for the key can become expensive, so instead the keys are
+stored implicitly in an array of 256 indexes. The entries in that array index a separate array of up
+to 48 pointers.
+
+{{< highlight "C++" "style=dracula" >}}
+    struct Node48 {
+        Value* value;
+        // Indexed by the key value, i.e. the child pointer for 'f'
+        // is at child_ptrs[child_ptr_indexes['f']]
+        char child_ptr_indexes[256];
+
+        Node* child_ptrs[48];
+        char num_children;
+    }
+{{< / highlight >}}
+
+The idea here is that this is superior to just storing an array of 256 `Node` pointers because you
+can store 48 children in 640 bytes (where 256 pointers would take 2k). Looking up the pointer does
+take an extra indirection:
+
+{{< highlight "C++" "style=dracula" >}}
+    Node* find_child(char c, Node48* node) {
+        int idx = node->child_ptr_indexes[c];
+        if (idx == -1) return NULL;
+
+        return node->child_ptrs[idx];
+    }
+{{< / highlight >}}
+
+The paper notes that in fact only 6 bytes (i.e. \\(log_2(48)\\)) are needed for each index; both in
+the paper and here it's simpler to use a byte per index to avoid any shifting and masking.
+
+#### `Node256`
+
+The final node type is the traditional trie node, used when a node has between 49 and 256 children.
+
+{{< highlight "C++" "style=dracula" >}}
+    struct Node256 {
+        Value* value;
+
+        Node* child_ptrs[256];
+    }
+
+    Node* find_child(char c, Node256* node) {
+        return child_ptrs[c];
+    }
+{{< / highlight >}}
+
+Looking up child pointers is obviously very efficient - the most efficient of all the node types -
+and when occupancy is at least 49 children the wasted space is less significant (although not 0 by
+any stretch of the imagination).
+
+##### Storing values
+
+My version of the above
+
+##### Other tricks: lazy compression and path expansion
+
+Two techniques are described that allows the trie to shrink its height if there are nodes that only
+have one child. The paper claims these are "well-known", and therefore not novel, but they reduce
+the impact of having either strings with a unique suffix (lazy expansion) or a common prefix (path
+compression).
+
+#### Lazy expansion
+
+If some node in a trie has only one child, and that node only has one child, and that node only has
+one child, and so on all the way to a leaf, there isn't much sense in storing all the overhead of a
+node per character. That path in the trie describes exactly one string, so why not just store that
+string in the first node and get rid of all the rest? This is called _lazy expansion_, so-termed
+because any futher insertions into this path must cause it to be expanded so the trie can be
+searched as normal.
+
+Implementing lazy expansion really just means having a pointer in every node to a key.
