@@ -15,11 +15,11 @@ categories:
 
 _Leis et. al., ICDE 2013_ \[[paper](https://db.in.tum.de/~leis/papers/ART.pdf)\]
 
-<a href="https://en.wikipedia.org/wiki/Trie">Tries</a> are the unloved third data structure for
-building key-value storage and indexes, after search trees (like
+<a href="https://en.wikipedia.org/wiki/Trie">Tries</a> are an unloved third data structure for
+building key-value stores and indexes, after search trees (like
 [B-trees](https://en.wikipedia.org/wiki/B-tree) and [red-black
 trees](https://en.wikipedia.org/wiki/Red%E2%80%93black_tree)) and hash tables. Yet they have a
-number of very appealing properties that make them worth of consideration - for example, the height
+number of very appealing properties that make them worthy of consideration - for example, the height
 of a trie is independent of the number of keys it contains, and a trie requires no rebalancing when
 updated. Weighing against those advantages is the heavy memory cost that vanilla radix tries can
 incur, because each node contains a pointer for every possible value of the 'next' character in the
