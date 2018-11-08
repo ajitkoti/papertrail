@@ -3,7 +3,7 @@ title: "Beating hash tables with trees? The ART-ful radix trie"
 date: 2018-11-03T22:04:31-07:00
 author: Henry
 permalink: /paper-notes-art/
-draft: true
+draft: false
 layout: post
 categories:
     - Paper notes
@@ -16,13 +16,14 @@ categories:
 _Leis et. al., ICDE 2013_ \[[paper](https://db.in.tum.de/~leis/papers/ART.pdf)\]
 
 <a href="https://en.wikipedia.org/wiki/Trie">Tries</a> are the unloved third data structure for
-building key-value storage, after search trees (like [B-trees](https://en.wikipedia.org/wiki/B-tree)
-and [red-black trees](https://en.wikipedia.org/wiki/Red%E2%80%93black_tree)) and hash tables. Yet
-they have a number of very appealing properties that make them worth of consideration - for example,
-the height of a trie is independent of the number of keys it contains, and a trie requires no
-rebalancing when updated. Weighing against those advantages is the heavy memory cost that vanilla
-radix tries can incur, because each node contains a pointer for every possible value of the 'next'
-character in the key. With ASCII as an example, that's 256 pointers for every node in the tree.
+building key-value storage and indexes, after search trees (like
+[B-trees](https://en.wikipedia.org/wiki/B-tree) and [red-black
+trees](https://en.wikipedia.org/wiki/Red%E2%80%93black_tree)) and hash tables. Yet they have a
+number of very appealing properties that make them worth of consideration - for example, the height
+of a trie is independent of the number of keys it contains, and a trie requires no rebalancing when
+updated. Weighing against those advantages is the heavy memory cost that vanilla radix tries can
+incur, because each node contains a pointer for every possible value of the 'next' character in the
+key. With ASCII as an example, that's 256 pointers for every node in the tree.
 
 But the astute reader will feel in their bones that this is naive - there must be more efficient
 ways to store a set of pointers, indexed by a fixed size set of keys (the trie's alphabet). Indeed,
@@ -43,6 +44,8 @@ Very quickly, let's describe tries. Instead of using the entire value of a key t
 tree structure (like, for example, binary search trees, where you compare the whole key to the
 current node's value), a trie breaks down a key into a sequence of _characters_, and makes one node
 per character. Each node has a possible child for every character in the alphabet.
+
+{{< figure src="https://upload.wikimedia.org/wikipedia/commons/b/be/Trie_example.svg" caption="A simple trie over English words (A, to, tea, ted, ten, inn), from Wikipedia." >}}
 
 You find a key in a trie by looking for the first character in the root node - that will point you
 to a child node. You then look in _that_ node for the second character, which will give you another
