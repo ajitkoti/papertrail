@@ -44,7 +44,7 @@ aliases:
 
 * _[Cache-Conscious Concurrency Control of Main-Memory Indexes on Shared-Memory Multiprocessor Systems](https://pdfs.semanticscholar.org/c964/691f3cb8f86a19d17a3beed2f50444df4669.pdf)_ - Cha et. al., VLDB 2001
 
-* _[The Adaptive Radix Tree: ARTful Indexing for Main-Memory Databases](https://db.in.tum.de/~leis/papers/ART.pdf)_ - Leis et. al., ICDE 2013
+* \[**[notes](/post/art-paper-notes)**\] ~~_[The Adaptive Radix Tree: ARTful Indexing for Main-Memory Databases](https://db.in.tum.de/~leis/papers/ART.pdf)_ - Leis et. al., ICDE 2013~~
 
 ## In-network coordination
 
