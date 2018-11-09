@@ -33,7 +33,7 @@ aliases:
 
 * _[Speedy transactions in multicore in-memory databases](http://sigops.org/sosp/sosp13/papers/p18-tu.pdf)_ - Tu et. al., SOSP 2013
 
-* _[The Bw-tree: A B-tree for New Hardware Platforms](https://15721.courses.cs.cmu.edu/spring2017/papers/08-oltpindexes2/bwtree-icde2013.pdf)_ - Levandoski et. al., ICDE 2013
+* _[The Bw-Tree: A B-tree for New Hardware Platforms](https://15721.courses.cs.cmu.edu/spring2017/papers/08-oltpindexes2/bwtree-icde2013.pdf)_ - Levandoski et. al., ICDE 2013
 
 * _[Building a Bw-Tree Takes More Than Just Buzzwords](https://db.cs.cmu.edu/papers/2018/mod342-wangA.pdf)_ - Wang et. al., SIGMOD 2018
     * Related: _[The ART of Practical Synchronization](https://db.in.tum.de/~leis/papers/artsync.pdf)_ - Leis et. al., DaMoN 2016
