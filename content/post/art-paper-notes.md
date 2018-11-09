@@ -3,6 +3,7 @@ title: "Beating hash tables with trees? The ART-ful radix trie"
 date: 2018-11-03T22:04:31-07:00
 author: Henry
 permalink: /paper-notes-art/
+aliases: [/art-index/]
 draft: false
 layout: post
 categories:
