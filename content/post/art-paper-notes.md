@@ -130,15 +130,16 @@ respectively. Assume we have a union type like the following:
 
 {{< highlight "C++" "style=dracula" >}}
     union Node {
-        Node4;
-        Node16;
-        Node48;
-        Node256;
+        Node4* n4;
+        Node16* n16;
+        Node48* n48;
+        Node256* n256;
     }
 {{< / highlight >}}
 
 This allows us to talk about all the different types of `Node`, and pointers to them, in the
-following without trying to make them all inherit from a base class.
+following without trying to make them all inherit from a base class. (This elides a few details,
+check [this C implementation of ART](https://github.com/armon/libart) for a fully realised version).
 
 #### `Node4`
 
