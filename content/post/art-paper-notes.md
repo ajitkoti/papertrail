@@ -220,7 +220,7 @@ only 16 bytes.
 
 #### `Node48`
 
-The next node can hold up to four times as many keys as a `Node16`. As the paper says, when there
+The next node can hold up to three times as many keys as a `Node16`. As the paper says, when there
 are more than 16 children, searching for the key can become expensive, so instead the keys are
 stored implicitly in an array of 256 indexes. The entries in that array index a separate array of up
 to 48 pointers.
@@ -291,7 +291,7 @@ Instead, all values are stored in one of three ways:
   distinguishes between them based on the highest bit - let's say 0 to interpret the pointer as a
   child node pointer, and 1 to interpret it as a pointer to a value. Using these high bits doesn't
   lose us anything on a modern CPU whose addressable memory is 'only' \\(2^{48}\\) bytes - the extra
-  16 bytes in a 64-bit pointer can be used to store extra information.
+  16 bits in a 64-bit pointer can be used to store extra information.
 
 At this point you might share the same confusion that I did: all these value-storage designs
 _replace_ a child node (or a pointer to a child node) with a leaf node (or a pointer to a
@@ -357,7 +357,7 @@ sequence.
 Usually when one considers any tree-based search structure, they do so only if range queries are
 needed, because otherwise the received wisdom is that a hash table's performance will wipe the floor
 with the tree. What is particularly interesting about ART, then, is that for some workloads it is
-_competitive with, or even **beats** hash tables for point-lookup queries_.
+_competitive with, or even **beats** chained hash tables for point-lookup queries_.
 
 The results are laid out in Figure 10, but the gist is that, for random lookups, ART performs better
 than a chained hash table implementation when the key set is 'dense'; i.e. all integers from
@@ -389,4 +389,4 @@ ART has been evaluated many times since the paper was published (e.g. <a
 href="https://db.cs.cmu.edu/papers/2018/mod342-wangA.pdf">this recent takedown of the Bw-tree</a>),
 and is still considered an _extremely_ competitive index implementation. It's appealing not only for
 its performance, but for the minimal delta from a well-understood data structure that it
-represents. You could implement a basic version of ART in a few hours of work. So why not try?
+represents. You could implement a basic version of ART in a few hours of work. So why not... trie?
