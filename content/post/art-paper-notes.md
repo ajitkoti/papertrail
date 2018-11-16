@@ -153,22 +153,25 @@ will dominate.
     struct Node4 {
         char child_keys[4];
         Node* child_pointers[4];
-        byte num_children;
     }
 
     Node* find_child(char c, Node4* node) {
-        for (int i = 0; i < node->num_children; ++i) {
-            if (child_keys[i] == c) return child_pointers[i];
+        Node* ret = NULL;
+        for (int i = 0; i < 4; ++i) {
+            if (child_keys[i] == c) ret = node->child_pointers[i];
         }
 
-        return NULL;
+        return ret;
     }
 {{< / highlight >}}
 
-Pointers are assumed to be 8 bytes, so a single `Node4` is 37 bytes, so sits in a single cache
-line. The search loop can also be unrolled, but the branch in each loop iteration can't be obviously
-elided and is not easily predicted. Still, the locality benefits make this a very efficient
-structure for very sparsely populated trie nodes.
+Pointers are assumed to be 8 bytes, so a single `Node4` is 36 bytes, so sits in a single cache
+line. The search loop can also be unrolled. Finally, by not early-exiting from the loop, we can hint
+to the compiler that it need not use a full branch, but can just use a conditional `cmov`
+[predicated instruction](https://en.wikipedia.org/wiki/Predication_(computer_architecture)). (These
+optimisations are possible here if we can initialise `child_keys` to some distinguished value that
+can't be found in any key). The locality benefits make this a very efficient structure for very
+sparsely populated trie nodes.
 
 #### `Node16`
 
