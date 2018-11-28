@@ -3,7 +3,7 @@ title: "Interviews need not be a horror show"
 date: 2018-11-19T22:04:31-07:00
 author: Henry
 permalink: /interview-experience/
-draft: false
+draft: true
 layout: post
 categories:
     - Misc
@@ -162,6 +162,23 @@ cold, I sometimes wound up speaking to a team that wasn't quite as well aligned 
 to do.
 
 ### Preparation and phone screens
+
+As I mentioned earlier, I was most nervous about the problem-solving questions I would be
+asked. Now, I have a pretty decent background in computer science, so I'm very comfortable having
+conversations about algorithmic complexity and so on.
+
+In preparation, I did a lot of practice on Leetcode. It helped that I find these kind of problems
+relatively enjoyable, but I want to be qualify where I got to: at the end of the practice I was able
+to solve pretty much every 'easy' problem, and about 80% of 'medium' problems. 'Hard' problems had
+about a 20-40% success rate (I also spent the least amount of time on those).
+
+The benefits of doing so were many:
+
+* I sharpened up my knowledge of elementary data structures (linked lists, trees, hash tables, sets,
+  strings) and algorithms (search, permutation, bit-twiddling)
+* I found what gaps in my 'coverage' existed - for example, I hadn't heard of segment trees before.
+* I practiced writing code! Particularly, I got better at writing code that probably worked first
+  time. The feedback loop from Leetcode where you submit your code to tests
 
 ### In-person interviews
 
