@@ -6,19 +6,23 @@ aliases:
   - /reading-list/
 ---
 
-## Misc.
-
-* _[Ray: A Distributed Framework for Emerging AI Applications](https://rise.cs.berkeley.edu/blog/publication/ray-distributed-framework-emerging-ai-applications/)_ - Moritz et. al.
-
-* _[Dynamic Control Flow in Large-Scale Machine Learning](https://dl.acm.org/citation.cfm?id=3190551)_ - Yu et. al., Eurosys 2018
-
-* _[Riffle: Optimized Shuffle Service for Large-Scale Data Analytics](https://dl.acm.org/citation.cfm?id=3190534)_ - Zhang et. al., Eurosys 2018
+## Distributed Systems
 
 * _[Service Fabric: A Distributed Platform for Building Microservices in the Cloud](https://dl.acm.org/citation.cfm?id=3190546)_ - Kakivaya et. al., EuroSys 2018
 
 * _[Gray Failure: The Achilles’ Heel of Cloud-Scale Systems](https://www.microsoft.com/en-us/research/wp-content/uploads/2017/06/paper-1.pdf)_ - Huang et. al., HotOS 2017
 
+* _[Cache-aware load balancing of data center applications](http://www.vldb.org/pvldb/vol12/p709-archer.pdf)_ - Archer et. al., VLDB 2019
+
+* _[Slicer: Auto-Sharding for Datacenter Applications](https://www.usenix.org/system/files/conference/osdi16/osdi16-adya.pdf)_ - Adya et. al., OSDI 2016
+
+## Databases
+
 * _[Everything You Always Wanted to Know About Compiled and Vectorized Queries, But Were Afraid to Ask](http://www.vldb.org/pvldb/vol11/p2209-kersten.pdf)_ - Kersten et. al., PVLDB 2018
+
+* _[Hyper Dimension Shuffle: Efficient Data Repartition at Petabyte Scale in SCOPE](http://www.vldb.org/pvldb/vol12/p1113-qiao.pdf)_ - Qiao et. al., VLDB 2019
+
+* _[Riffle: Optimized Shuffle Service for Large-Scale Data Analytics](https://dl.acm.org/citation.cfm?id=3190534)_ - Zhang et. al., Eurosys 2018
 
 ## Key-value storage engines
 
@@ -53,3 +57,9 @@ aliases:
 * _[Just say NO to Paxos Overhead: Replacing Consensus with Network Ordering](https://www.usenix.org/system/files/conference/osdi16/osdi16-li.pdf)_ - Li et. al., OSDI 2016
 
 * _[NetChain: Scale-Free Sub-RTT Coordination](https://www.usenix.org/system/files/conference/nsdi18/nsdi18-jin.pdf)_ - Jin et. al., NSDI 2018
+
+## Misc.
+
+* _[Ray: A Distributed Framework for Emerging AI Applications](https://rise.cs.berkeley.edu/blog/publication/ray-distributed-framework-emerging-ai-applications/)_ - Moritz et. al.
+
+* _[Dynamic Control Flow in Large-Scale Machine Learning](https://dl.acm.org/citation.cfm?id=3190551)_ - Yu et. al., Eurosys 2018
