@@ -16,6 +16,10 @@ aliases:
 
 * _[Slicer: Auto-Sharding for Datacenter Applications](https://www.usenix.org/system/files/conference/osdi16/osdi16-adya.pdf)_ - Adya et. al., OSDI 2016
 
+* _[Maglev: A Fast and Reliable Software Network Load Balancer](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/44824.pdf)_ - Eisunbed et. al., NSDI 2016
+
+* _[Kraken: Leveraging Live Trafﬁc Tests to Identify and Resolve Resource Utilization Bottlenecks in Large Scale Web Services](https://research.fb.com/publications/kraken-leveraging-live-trafﬁc-tests-to-identify-and-resolve-resource-utilization-bottlenecks-in-large-scale-web-services/)_ - Veeraraghavanet. al., OSDI 2016
+
 ## Databases
 
 * _[Everything You Always Wanted to Know About Compiled and Vectorized Queries, But Were Afraid to Ask](http://www.vldb.org/pvldb/vol11/p2209-kersten.pdf)_ - Kersten et. al., PVLDB 2018
