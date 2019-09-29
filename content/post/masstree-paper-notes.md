@@ -73,9 +73,9 @@ the _next_ slice in the key.
 The structure that results from implementing this scheme is called a _Masstree_. The paper describes
 it as a "trie-like concatentation of B+-trees". Each level of the trie is a 'layer'.
 
-> The trie structure efficiently supports long keys with shared prefixes; the B+-tree structures
+> "The trie structure efficiently supports long keys with shared prefixes; the B+-tree structures
 > efficiently support short keys and fine-grained concurrency, and their medium fanout uses cache
-> lines effectively.
+> lines effectively."
 
 {{< figure src="/masstree-diagram-1.png" caption="Masstree as a trie (2-byte slices)" >}}
 
@@ -140,12 +140,12 @@ notes from their approach:
 
 ### What about the so-called 'cache craftiness'?
 
-> First, Masstree must efficiently support many key distributions, including variable-length binary
+> "First, Masstree must efficiently support many key distributions, including variable-length binary
 > keys where many keys might have long common prefixes. Second, for high performance and
 > scalability, Masstree must allow fine-grained concurrent access, and its get operations must
 > never dirty shared cache lines by writing shared data structures. Third, Masstree’s layout must
 > support prefetching and collocate important in- formation on small numbers of cache lines. The
-> second and third properties together constitute cache craftiness.
+> second and third properties together constitute cache craftiness."
 
 * Fixed-size key comparisons can be done with SIMD (not mentioned by paper, maybe not a win)
 * Border nodes are 256-bytes, so fit in four cache lines (much of that is key / value data).
