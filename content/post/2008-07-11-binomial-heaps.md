@@ -42,7 +42,7 @@ There is, of course, a snag in our reasoning. All of our operations depend on th
 
 Each tree in a binomial heap has the same basic structure. We can define this inductively. The first binomial tree,  \\(B_0\\) has one node. The  \\(n+1^{th}\\) binomial tree  \\(B_{n+1}\\) is formed from two  \\(B_n\\) trees by making the root of one the leftmost child of the root of the other. This gives the sequence seen in figure 1.
 
-<img style='color:white;' src="http://hnr.dnsalias.net/images/binomials.png" alt="The first three binomial trees" />
+<!-- <img style='color:white;' src="http://hnr.dnsalias.net/images/binomials.png" alt="The first three binomial trees" /> -->
 
 (Figure 1: the first three binomial trees \\(B_0, B_1, B_2\\)
 
