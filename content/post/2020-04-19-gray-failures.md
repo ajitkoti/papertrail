@@ -8,7 +8,7 @@ draft: false
 layout: post
 categories:
     - Paper notes
---
+---
 _Huang et. al., HotOS 2017_ ["Gray Failure: The Achilles Heel of Cloud-Scale Systems"](https://www.microsoft.com/en-us/research/wp-content/uploads/2017/06/paper-1.pdf)
 
 Detecting faults in a large system is a surprisingly hard problem. First you have to decide what kind of thing you want to measure, or 'observe'. Then you have to decide what pattern in that observation constitutes a sufficiently worrying situation (or 'failure') to require mitigation. Then you have to decide how to mitigate it!
